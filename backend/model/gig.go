@@ -1,6 +1,12 @@
 package model
 
-import "time"
+import (
+	"log"
+	"time"
+
+	pg "github.com/go-pg/pg"
+	orm "github.com/go-pg/pg/v9/orm"
+)
 
 /*
 	table name : gigs
@@ -15,4 +21,19 @@ type Gig struct {
 	CreatedAt time.Time `sql:"created_at"`
 	UpdatedAt time.Time `sql:"updated_at"`
 	IsActive  bool      `sql:"is_activate"`
+}
+
+// * pointer to, & reference to
+func CreateGigTable(db *pg.DB) error {
+	opts := &orm.CreateTableOptions{
+		IfNotExists: true,
+	}
+	err := db.CreateTable(&Gig{}, opts)
+	if err != nil {
+		log.Panic("Error creating table gigs, Reason: %v\n", err)
+		return err
+	}
+	log.Printf("Table gigs created. \n")
+	return nil
+
 }
