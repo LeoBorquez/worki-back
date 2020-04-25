@@ -12,6 +12,10 @@ func main() {
 		return c.String(http.StatusOK, "Test Echo!")
 	})
 
+	e.GET("/gigs", func(c echo.Context) error {
+		return c.JSON(htpp.StatusOK, "GET gigs")
+	})
+
 	e.Logger.Fatal(e.Start(":1323"))
 
 }
