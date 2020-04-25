@@ -1,4 +1,4 @@
-package db
+package model
 
 import (
 	"log"
@@ -20,6 +20,8 @@ func CreateCon() {
 		os.Exit(100)
 	}
 	log.Printf("Connected succesfully")
+
+	CreateGigTable(db)
 
 	defer db.Close()
 }

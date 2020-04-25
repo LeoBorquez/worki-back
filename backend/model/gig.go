@@ -30,7 +30,7 @@ func CreateGigTable(db *pg.DB) error {
 	}
 	err := db.CreateTable(&Gig{}, opts)
 	if err != nil {
-		log.Panic("Error creating table gigs, Reason: %v\n", err)
+		log.Panic(err)
 		return err
 	}
 	log.Printf("Table gigs created. \n")
