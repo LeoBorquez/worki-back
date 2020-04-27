@@ -15,6 +15,12 @@ func main() {
 	e.GET("/gigs", func(c echo.Context) error {
 		return c.JSON(http.StatusOK, "GET gigs")
 	})
+	e.PUT("/gigs", func(c echo.Context) error {
+		return c.JSON(http.StatusOK, "PUT gigs")
+	})
+	e.DELETE("/gigs/:id", func(c echo.Context) error {
+		return c.JSON(http.StatusOK, "DELETE gig "+c.Param("id"))
+	})
 
 	e.Logger.Fatal(e.Start(":1323"))
 
