@@ -5,7 +5,7 @@ import (
 	"time"
 
 	pg "github.com/go-pg/pg"
-	orm "github.com/go-pg/pg/v9/orm"
+	"github.com/go-pg/pg/orm"
 )
 
 /*
@@ -25,14 +25,11 @@ type Gig struct {
 
 //CreateGigTable * pointer to, & reference to
 func CreateGigTable(db *pg.DB) error {
-	opts := &orm.CreateTableOptions{
+	err := db.CreateTable(&Gig{}, &orm.CreateTableOptions{
 		IfNotExists: true,
-	}
-	err := db.CreateTable(&Gig{}, opts)
-	if err != nil {
-		log.Panic(err)
-		return err
-	}
+	})
+	log.Panic(err)
+
 	log.Printf("Table gigs created. \n")
 	return nil
 
