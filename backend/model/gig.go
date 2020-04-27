@@ -23,7 +23,7 @@ type Gig struct {
 	IsActive  bool      `sql:"is_activate"`
 }
 
-// * pointer to, & reference to
+//CreateGigTable * pointer to, & reference to
 func CreateGigTable(db *pg.DB) error {
 	opts := &orm.CreateTableOptions{
 		IfNotExists: true,
