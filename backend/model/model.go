@@ -1,11 +1,16 @@
 package model
 
 import (
+	"fmt"
 	"log"
-	"os"
 
 	pg "github.com/go-pg/pg"
 )
+
+// TestExport testing export
+func TestExport() {
+	fmt.Println("test export")
+}
 
 // CreateCon create the connection to th db
 func CreateCon() {
@@ -16,11 +21,11 @@ func CreateCon() {
 	})
 
 	if db == nil {
-		log.Printf("Failed to connect to database.\n")
-		os.Exit(100)
+		log.Panic("Failed to connect to database.\n")
 	}
 	log.Printf("Connected succesfully")
 
+	// migration
 	CreateGigTable(db)
 
 	defer db.Close()

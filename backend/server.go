@@ -4,9 +4,14 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo/v4"
+
+	m "github.com/LeoBorquez/worki/backend/model"
 )
 
 func main() {
+
+	m.TestExport()
+
 	e := echo.New()
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Test Echo!")
