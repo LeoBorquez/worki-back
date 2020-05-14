@@ -2,6 +2,6 @@ package model
 
 import "fmt"
 
-func test() {
+func Test() {
 	fmt.Printf("test")
 }

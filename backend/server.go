@@ -5,12 +5,13 @@ import (
 
 	"github.com/labstack/echo/v4"
 
-	m "github.com/LeoBorquez/worki/backend/model"
+	m "github.com/LeoBorquez/worki/model"
+
 )
 
 func main() {
 
-	m.TestExport()
+	m.CreateCon()
 
 	e := echo.New()
 	e.GET("/", func(c echo.Context) error {
