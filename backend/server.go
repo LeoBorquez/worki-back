@@ -6,12 +6,11 @@ import (
 	"github.com/labstack/echo/v4"
 
 	m "github.com/LeoBorquez/worki/model"
-
 )
 
 func main() {
 
-	m.CreateCon()
+	m.Test()
 
 	e := echo.New()
 	e.GET("/", func(c echo.Context) error {
