@@ -3,5 +3,5 @@ package model
 import "fmt"
 
 func Test() {
-	fmt.Printf("test")
+	fmt.Printf("test tststs")
 }
