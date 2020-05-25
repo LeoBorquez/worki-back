@@ -5,7 +5,7 @@ import (
 	"log"
 
 	pg "github.com/go-pg/pg"
-	"github.com/joho/godotenv"
+	_ "github.com/joho/godotenv"
 )
 
 // TestExport testing export
