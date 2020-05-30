@@ -1,17 +1,21 @@
 package model
 
 import (
-	"log"
 	"time"
 
-	pg "github.com/go-pg/pg"
-	"github.com/go-pg/pg/orm"
+	"github.com/dgrijalva/jwt-go"
+	"github.com/jinzhu/gorm"
 )
 
-/*
-	table name : gigs
-*/
+// Token JWT claims struct
+type Token struct {
+	GigID uint
+	jwt.StandardClaims
+}
+
+// Gig table name : gigs
 type Gig struct {
+	gorm.Model
 	ID        int       `sql:"id, pk"`
 	Tittle    string    `sql:"tittle"`
 	Desc      string    `sql:"desc"`
@@ -21,16 +25,4 @@ type Gig struct {
 	CreatedAt time.Time `sql:"created_at"`
 	UpdatedAt time.Time `sql:"updated_at"`
 	IsActive  bool      `sql:"is_activate"`
-}
-
-//CreateGigTable * pointer to, & reference to
-func CreateGigTable(db *pg.DB) error {
-	err := db.CreateTable(&Gig{}, &orm.CreateTableOptions{
-		IfNotExists: true,
-	})
-	log.Panic(err)
-
-	log.Printf("Table gigs created. \n")
-	return nil
-
 }
