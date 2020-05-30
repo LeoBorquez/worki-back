@@ -30,6 +30,8 @@ func init() {
 	}
 	db = conn
 	db.Debug().AutoMigrate()
+
+	defer db.Close()
 }
 
 // returns a handle to the DB object
