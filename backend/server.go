@@ -1,21 +1,20 @@
 package main
 
 import (
+	"github.com/LeoBorquez/worki/model"
 	"net/http"
 
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 
 	app "github.com/LeoBorquez/worki/app"
-	m "github.com/LeoBorquez/worki/model"
 )
 
 func main() {
 
-	m.Test()
+	model.Init()
 
 	e := echo.New()
-
 	// Middleware
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())

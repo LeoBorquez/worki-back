@@ -1,7 +1,14 @@
 package model
 
-import "fmt"
+import "github.com/jinzhu/gorm"
 
-func suer() {
-	fmt.Println("test")
+// User table : user
+type User struct {
+	gorm.Model
+	Name     string `sql:"name"`
+	LastName string `sql:"last_name"`
+	Email    string `sql:"email"`
+	Phone    string `sql:"phone"`
+	Pasword  string `sql:"password"`
+	Toke     string `sql:"token"`
 }

@@ -11,17 +11,19 @@ import (
 
 var db *gorm.DB
 
-func init() {
+// Init database
+func Init() {
 	e := godotenv.Load()
 	if e != nil {
 		fmt.Print(e)
 	}
 	username := os.Getenv("db_user")
-	//password := os.Getenv("db_pass")
+	password := os.Getenv("db_pass")
 	dbName := os.Getenv("db_name")
 	dbHost := os.Getenv("db_host")
+	dbPort := os.Getenv("db_port")
 
-	dbURI := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable", dbHost, username, dbName)
+	dbURI := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s", dbHost, dbPort, username, dbName, password)
 	fmt.Println(dbURI)
 
 	conn, err := gorm.Open("postgres", dbURI)
@@ -29,9 +31,9 @@ func init() {
 		fmt.Print(err)
 	}
 	db = conn
-	db.Debug().AutoMigrate()
+	db.Debug().AutoMigrate(&User{})
 
-	defer db.Close()
+	//defer db.Close()
 }
 
 // returns a handle to the DB object
