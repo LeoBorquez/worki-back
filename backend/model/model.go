@@ -23,17 +23,18 @@ func Init() {
 	dbHost := os.Getenv("db_host")
 	dbPort := os.Getenv("db_port")
 
-	dbURI := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s", dbHost, dbPort, username, dbName, password)
+	dbURI := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=disable password=%s", dbHost, dbPort, username, dbName, password)
 	fmt.Println(dbURI)
 
-	conn, err := gorm.Open("postgres", dbURI)
+	db, err := gorm.Open("postgres", dbURI)
 	if err != nil {
-		fmt.Print(err)
+		panic(err)
 	}
-	db = conn
 	db.Debug().AutoMigrate(&User{})
 
-	//defer db.Close()
+	// Initialise value
+	m := User{Name: "Leo", LastName: "Borquez", Email: "Leo@test.cl", Phone: "+56920278597"}
+	db.Create(m)
 }
 
 // returns a handle to the DB object
