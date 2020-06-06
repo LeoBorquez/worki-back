@@ -23,15 +23,17 @@ func (h *Handler) Signup(c echo.Context) (err error) {
 	if err = c.Bind(u); err != nil {
 		return
 	}
-
 	// Validate
-	if u.Email == "" || u.Pasword == "" {
+	if u.Email == "" || u.Password == "" {
 		return &echo.HTTPError{Code: http.StatusBadRequest, Message: "invalid email or password"}
 	}
 
 	// Save user
 	db := h.DB
+	if err := db.Create(u); err != nil {
+		return &echo.HTTPError{Code: http.StatusInternalServerError, Message: "Couldn't save user"}
+	}
 	defer db.Close()
 
-	return nil
+	return c.JSON(http.StatusCreated, u)
 }

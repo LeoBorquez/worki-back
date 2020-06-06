@@ -1,43 +1,48 @@
 package main
 
 import (
+	"fmt"
+	"github.com/LeoBorquez/worki/handler"
 	"github.com/LeoBorquez/worki/model"
-	"net/http"
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
+	"github.com/joho/godotenv"
+	"os"
 
 	"github.com/labstack/echo"
-	"github.com/labstack/echo/middleware"
-
-	app "github.com/LeoBorquez/worki/app"
 )
 
 func main() {
 
-	model.Init()
-
+	// Start echo
 	e := echo.New()
-	// Middleware
-	e.Use(middleware.Logger())
-	e.Use(middleware.Recover())
 
-	// Login route
-	e.POST("/login", app.Login)
-
-	// Restricted group
-	e.GET("/", app.Accessible)
-
-	// Restricted group
-	r := e.Group("/restricted")
-
-	config := middleware.JWTConfig{
-		Claims:     &app.JwtCustomClaims{},
-		SigningKey: []byte("secret"),
+	// Database connection
+	env := godotenv.Load()
+	if env != nil {
+		fmt.Print(env)
 	}
-	r.Use(middleware.JWTWithConfig(config))
-	r.GET("", app.Restricted)
+	username := os.Getenv("db_user")
+	password := os.Getenv("db_pass")
+	dbName := os.Getenv("db_name")
+	dbHost := os.Getenv("db_host")
+	dbPort := os.Getenv("db_port")
 
-	e.GET("/", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Test Echo!")
-	})
+	dbURI := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=disable password=%s", dbHost, dbPort, username, dbName, password)
+	fmt.Println(dbURI)
+
+	db, err := gorm.Open("postgres", dbURI)
+	if err != nil {
+		panic(err)
+	}
+	defer db.Close()
+
+	// Migration &User{}
+	db.Debug().AutoMigrate(&model.User{}, &model.Gig{})
+
+	h := &handler.Handler{DB: db}
+
+	e.POST("/signup", h.Signup)
 
 	/*
 		e.DELETE("/gigs/:id", func(c echo.Context) error {

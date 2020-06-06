@@ -9,6 +9,6 @@ type User struct {
 	LastName string `sql:"last_name"`
 	Email    string `sql:"email"`
 	Phone    string `sql:"phone"`
-	Pasword  string `sql:"password"`
+	Password string `sql:"password"`
 	Toke     string `sql:"token"`
 }
