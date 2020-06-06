@@ -30,7 +30,7 @@ func (h *Handler) Signup(c echo.Context) (err error) {
 
 	// Save user
 	db := h.DB
-	if err := db.Create(u); err != nil {
+	if err := db.Create(u); err == nil {
 		return &echo.HTTPError{Code: http.StatusInternalServerError, Message: "Couldn't save user"}
 	}
 	defer db.Close()
