@@ -37,3 +37,13 @@ func (h *Handler) Signup(c echo.Context) (err error) {
 
 	return c.JSON(http.StatusCreated, u)
 }
+
+func (h *Handler) Login(c echo.Context) (error error) {
+	// Bind
+	u := &model.User{}
+	if err = c.Bind(u); err != nil {
+		return
+	}
+
+	return c.JSON(http.StatusOK, u)
+}
