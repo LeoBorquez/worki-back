@@ -7,6 +7,8 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/joho/godotenv"
+	"github.com/labstack/echo/middleware"
+	"github.com/labstack/gommon/log"
 	"os"
 
 	"github.com/labstack/echo"
@@ -16,6 +18,17 @@ func main() {
 
 	// Start echo
 	e := echo.New()
+	e.Logger.SetLevel(log.ERROR)
+	e.Use(middleware.Logger())
+	e.Use(middleware.JWTWithConfig(middleware.JWTConfig{
+		SigningKey: []byte(handler.Key),
+		Skipper: func(c echo.Context) bool {
+			if c.Path() == "/login" || c.Path() == "/signup" {
+				return true
+			}
+			return false
+		},
+	}))
 
 	// Database connection
 	env := godotenv.Load()
@@ -40,15 +53,11 @@ func main() {
 	// Migration &User{}
 	db.Debug().AutoMigrate(&model.User{}, &model.Gig{})
 
+	// Handler
 	h := &handler.Handler{DB: db}
 
 	e.POST("/signup", h.Signup)
 
-	/*
-		e.DELETE("/gigs/:id", func(c echo.Context) error {
-			return c.JSON(http.StatusOK, "DELETE gig "+c.Param("id"))
-		})
-	*/
 	e.Logger.Fatal(e.Start(":1323"))
 
 }
