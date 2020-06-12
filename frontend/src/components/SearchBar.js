@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { Form, FormControl, InputGroup, Button, Container,Jumbotron as Jumbo } from 'react-bootstrap'
+import { Form, FormControl, InputGroup, Button, Container, Row, Col } from 'react-bootstrap'
 import styled from 'styled-components'
 
-
+const API_KEY = 'ecc70863'
 
 const Styles = styled.div`
 .jumbo {
@@ -11,10 +11,10 @@ const Styles = styled.div`
     height: 110px;
     background-color: #0d3880;
     color: #fff;
-    padding: 25px;
+    padding-top: 25px;
 }
 
-.btn-search{
+.btn-search {
     background-color: #ff4417;
     border-color: #ff4417;
     color: #fff;
@@ -22,21 +22,51 @@ const Styles = styled.div`
 `;
 
 export class SearchBar extends Component {
+
+    state = {
+        inputMovie: ''
+        }
+        
+        _handleChange = (e) => {
+        this.setState({inputMovie: e.target.value})
+        }
+        
+        _handleSubmit = (e) => {
+        e.preventDefault()
+        const {inputMovie} = this.state
+        fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&s=${inputMovie}`)
+        .then(res => res.json())
+        .then(results => {
+        const { Search = [], totalResults = 0 } = results
+        console.log({Search, totalResults})
+        this.props.onResults(Search)
+        })
+        }
+
+        _goBack (){
+            window.history.back()
+        }
+
     render() {
         return (
             <Styles>
                 <div className="jumbo">
                 <Container>
-                <h5>Bienvenido</h5>
-                <Form>
+                <Row>
+                    <Col><h5>Bienvenido</h5></Col>
+                    <Col align="right" onClick={this._goBack}>👨‍🚀 Iniciar Sesión</Col>
+                </Row>
+                
+                <Form onSubmit={this._handleSubmit}>
                 <InputGroup >
                     <FormControl
                     placeholder="Buscar Trabajo"
                     aria-label="Buscar Trabajo"
                     aria-describedby="buscar-trabajo"
+                    onChange={this._handleChange}
                     />
                     <InputGroup.Append>
-                    <Button variant="outline-secondary" className="btn-search">Buscar</Button>
+                    <Button variant="outline-secondary" className="btn-search" type="submit">Search</Button>
                     </InputGroup.Append>
                 </InputGroup>
                 </Form>
