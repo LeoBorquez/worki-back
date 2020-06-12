@@ -1,9 +1,9 @@
 import React from 'react';
 
 export const Layouts = (props) => (
-
-    <div>
+        <div>
         {props.children}
-    </div>
-
+        </div>
 )
+
+ 

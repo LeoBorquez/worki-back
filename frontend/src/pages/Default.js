@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types'
+import '../App.css'; 
+import { Job } from '../components/Job'
 import { Row, Col, Button } from 'react-bootstrap'
 import styled from 'styled-components'
-import { Job } from './Job'
 
 const Styles = styled.div`
 .btn{
@@ -15,20 +15,50 @@ const Styles = styled.div`
   }
 `;
 
-export class JobsList extends Component {
+export class Default extends Component {
 
-    static propTypes = {
-        jobs: PropTypes.array
-    }
+  constructor(props) {
+    super(props);
+ 
+    this.state = {
+      Search: [],
+      isLoading: false,
+      error: null,
+    };
+  }
+ 
+  componentDidMount() {
+    fetch('https://www.omdbapi.com/?apikey=ecc70863&s=iron+man')
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Something went wrong ...');
+      }
+    })
+      .then(data => this.setState({ Search: data.Search, isLoading: false }))
+      .catch(error => this.setState({ error, isLoading: false }));
+  }
+ 
 
     render() {
-        const { jobs } = this.props
-        return (
+      const { Search, isLoading, error } = this.state;
+      if (error) {
+        return <p>{error.message}</p>;
+      }
+
+      if (isLoading) {
+        return <p>Loading ...</p>;
+      }
+      return (
         <Styles>
+          <marquee width="100%" direction="left">
+          <strong>#Black Lives Matter</strong> 
+          </marquee>
             <Row>
                 <Col sm={8} >
                 {
-                jobs.map(job=> {
+                Search.map(job=> {
                     
                     return (
                             <div key={job.imdbID}>
@@ -59,4 +89,4 @@ export class JobsList extends Component {
     }
 }
 
-export default JobsList;
+export default Default;

@@ -1,11 +1,11 @@
 import React from 'react';
-import { Nav, Navbar, NavbarBrand } from 'react-bootstrap'
+import { Nav, Navbar, Container } from 'react-bootstrap'
 import styled from 'styled-components'
 
 const Styles = styled.div`
 
 .navbar {
-    background-color: #222;
+    background-color: #0e1724;
 }   
 
 .navbar-brand, .navbar-nav .nav-link {
@@ -20,17 +20,27 @@ const Styles = styled.div`
 export const NavigationBar = () => (
 
     <Styles>
+        
         <Navbar expand="lg">
-            <Navbar.Brand href="/"><div className="logo">OTTO</div></Navbar.Brand>
+        <Container>
+            <Navbar.Brand href="/"><div className="logo">Dashboard</div></Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="ml-auto">
-                <Nav.Item><Nav.Link href="/">HOME</Nav.Link></Nav.Item>
-                <Nav.Item><Nav.Link href="/dropzone">Drag and Drop</Nav.Link></Nav.Item>
-                <Nav.Item><Nav.Link href="/about">ABOUT</Nav.Link></Nav.Item>
-                <Nav.Item><Nav.Link href="/table">Table</Nav.Link></Nav.Item>
-            </Nav>
+                <Container>
+                <Nav className="lg-auto">
+                    <Nav.Link href="#home">Mis Proyectos</Nav.Link>
+                    <Nav.Link href="#features">Inbox</Nav.Link>
+                    <Nav.Link href="#pricing">Feedback</Nav.Link>
+                </Nav>
+                </Container>
+            </Navbar.Collapse> 
+            <Navbar.Collapse className="justify-content-end">
+                <Navbar.Text style={{color: '#fff'}}>
+                Signed in as: <a href="#login" style={{color: '#f1f1f1'}}>Mark Otto</a>
+                </Navbar.Text>
             </Navbar.Collapse>
+            </Container>
         </Navbar>
+        
     </Styles>
 )
