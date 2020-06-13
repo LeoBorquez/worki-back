@@ -3,7 +3,7 @@ package handler
 import (
 	"net/http"
 
-	"github.com/LeoBorquez/worki/model"
+	"github.com/LeoBorquez/workiBack/model"
 	"github.com/labstack/echo"
 )
 
@@ -41,7 +41,7 @@ func (h *Handler) Signup(c echo.Context) (err error) {
 func (h *Handler) Login(c echo.Context) (error error) {
 	// Bind
 	u := &model.User{}
-	if err = c.Bind(u); err != nil {
+	if err := c.Bind(u); err != nil {
 		return
 	}
 

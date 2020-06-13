@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/LeoBorquez/worki/handler"
-	"github.com/LeoBorquez/worki/model"
+	"github.com/LeoBorquez/workiBack/handler"
+	"github.com/LeoBorquez/workiBack/model"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/joho/godotenv"
