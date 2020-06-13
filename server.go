@@ -57,6 +57,7 @@ func main() {
 	h := &handler.Handler{DB: db}
 
 	e.POST("/signup", h.Signup)
+	e.POST("/login", h.Login)
 
 	e.Logger.Fatal(e.Start(":1323"))
 

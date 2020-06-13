@@ -1,9 +1,12 @@
 package handler
 
 import (
+	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/LeoBorquez/workiBack/model"
+	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
 )
 
@@ -38,12 +41,41 @@ func (h *Handler) Signup(c echo.Context) (err error) {
 	return c.JSON(http.StatusCreated, u)
 }
 
-func (h *Handler) Login(c echo.Context) (error error) {
+// Login user
+func (h *Handler) Login(c echo.Context) (err error) {
 	// Bind
 	u := &model.User{}
-	if err := c.Bind(u); err != nil {
+	if err = c.Bind(u); err != nil {
 		return
 	}
+
+	// Find user
+	db := h.DB
+	defer db.Close()
+	if err = db.Table("users").Find(u, "email = ? and password = ?", u.Email, u.Password).Error; err != nil {
+		fmt.Print(err)
+		return
+	}
+
+	//-----
+	// JWT
+	//-----
+
+	// Create token
+	token := jwt.New(jwt.SigningMethodHS256)
+
+	// Set Claims
+	claims := token.Claims.(jwt.MapClaims)
+	claims["id"] = u.ID
+	claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
+
+	// Generate encoded token and send it as response
+	u.Token, err = token.SignedString([]byte(Key))
+	if err != nil {
+		return err
+	}
+
+	u.Password = "" // Delete password in response
 
 	return c.JSON(http.StatusOK, u)
 }
