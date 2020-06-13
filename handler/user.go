@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"fmt"
 	"net/http"
 	"time"
 
@@ -53,8 +52,7 @@ func (h *Handler) Login(c echo.Context) (err error) {
 	db := h.DB
 	defer db.Close()
 	if err = db.Table("users").Find(u, "email = ? and password = ?", u.Email, u.Password).Error; err != nil {
-		fmt.Print(err)
-		return
+		return &echo.HTTPError{Code: http.StatusUnauthorized, Message: "invalid email or password"}
 	}
 
 	//-----
