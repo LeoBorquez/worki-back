@@ -63,6 +63,11 @@ func main() {
 	e.POST("/signup", h.Signup)
 	e.POST("/login", h.Login)
 
-	e.Logger.Fatal(e.Start(":1323"))
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = ":1323"
+	}
+
+	e.Logger.Fatal(e.Start(port))
 
 }
