@@ -40,7 +40,7 @@ func main() {
 	dbName := os.Getenv("db_name")
 	dbHost := os.Getenv("db_host")
 	dbPort := os.Getenv("db_port")
-	uri := os.Getenv("URI")
+	uri := os.Getenv("DATABASE_URL")
 
 	dbURI := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=disable password=%s", dbHost, dbPort, username, dbName, password)
 	if uri != "" {
