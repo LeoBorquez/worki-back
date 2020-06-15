@@ -68,6 +68,7 @@ func main() {
 		port = ":1323"
 	}
 
+	fmt.Printf(port)
 	e.Logger.Fatal(e.Start(port))
 
 }
