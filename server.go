@@ -12,6 +12,7 @@ import (
 	"os"
 
 	"github.com/labstack/echo"
+	"log"
 )
 
 func main() {
@@ -63,12 +64,18 @@ func main() {
 	e.POST("/signup", h.Signup)
 	e.POST("/login", h.Login)
 
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = ":1323"
-	}
+	port := GetPort()
+	log.Printf("[-] Listening on ...", port)
 
-	fmt.Printf(port)
 	e.Logger.Fatal(e.Start(port))
 
+}
+
+func GetPort() string {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "1323"
+		log.Println("[-] No Port Enviroment variable detected. Setting to ", port)
+	}
+	return ":" + port
 }
