@@ -9,6 +9,7 @@ import (
 	"github.com/labstack/echo"
 )
 
+/*
 type UserResquest struct {
 	Name     string `sql:"name"`
 	LastName string `sql:"last_name"`
@@ -17,6 +18,7 @@ type UserResquest struct {
 	Pasword  string `sql:"password"`
 	Toke     string `sql:"token"`
 }
+*/
 
 // Signup user handler
 func (h *Handler) Signup(c echo.Context) (err error) {

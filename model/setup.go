@@ -33,7 +33,6 @@ func SetupDB() *gorm.DB {
 	if err != nil {
 		panic(err)
 	}
-	defer db.Close()
 
 	// Migrate model
 	db.Debug().AutoMigrate(&User{}, &Gig{})

@@ -30,7 +30,7 @@ func main() {
 
 	// Connect to the database
 	db := model.SetupDB()
-
+	defer db.Close()
 	// Handler
 	h := &handler.Handler{DB: db}
 
