@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"fmt"
 	"github.com/labstack/echo"
 )
 
@@ -14,7 +15,8 @@ type GigRequest struct {
 	IsActive bool    `sql:"is_activate"`
 }
 */
-func (h *Handler) CreateGig(c echo.Context) (err error) {
-
+func (h *Handler) CreateGig(c echo.Context) (err error){
+	u := userIDFromToken(c)
+	fmt.Println(u)
 	return err
 }

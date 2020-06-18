@@ -36,6 +36,7 @@ func main() {
 
 	e.POST("/signup", h.Signup)
 	e.POST("/login", h.Login)
+	e.POST("/gigs", h.CreateGig)
 
 	port := GetPort()
 	fmt.Println("[-] Listening on ...", port)
