@@ -42,7 +42,7 @@ func (h *Handler) Login(c echo.Context) (err error) {
 	// Find user
 	db := h.DB
 	defer db.Close()
-	if err = db.Table("users").Find(u, "email = ? and password = ?", u.Email, u.Password).Error; err == nil {
+	if err = db.Table("users").Find(u, "email = ? and password = ?", u.Email, u.Password).Error; err != nil {
 		return &echo.HTTPError{Code: http.StatusUnauthorized, Message: "invalid email or password"}
 	}
 
@@ -70,8 +70,9 @@ func (h *Handler) Login(c echo.Context) (err error) {
 }
 
 // Get user ID
-func userIDFromToken(c echo.Context) string {
+func userIDFromToken(c echo.Context) int {
 	user := c.Get("user").(*jwt.Token)
 	claims := user.Claims.(jwt.MapClaims)
-	return claims["id"].(string)
+
+	return int(claims["id"].(float64))
 }
