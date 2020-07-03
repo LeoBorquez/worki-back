@@ -70,9 +70,9 @@ func (h *Handler) Login(c echo.Context) (err error) {
 }
 
 // Get user ID
-func userIDFromToken(c echo.Context) int {
+func userIDFromToken(c echo.Context) uint {
 	user := c.Get("user").(*jwt.Token)
 	claims := user.Claims.(jwt.MapClaims)
 
-	return int(claims["id"].(float64))
+	return uint(claims["id"].(float64))
 }
