@@ -9,12 +9,33 @@ import (
 
 // CreateGig create a new gig
 func (h *Handler) CreateGig(c echo.Context) (err error) {
-	u := userIDFromToken(c)
+
+	db := h.DB
+	userID := userIDFromToken(c)
+
 	g := &model.Gig{}
+	u := &model.User{}
+	g.UserID = userID
 
-	g.UserID = u
-	g.Tittle = "test gig"
+	// binding gig
+	if err = c.Bind(g); err != nil {
+		return
+	}
 
-	h.DB.Create(g)
-	return c.JSON(http.StatusCreated, u)
+	// validation
+	if g.Tittle == "" {
+		return &echo.HTTPError{Code: http.StatusBadRequest, Message: "invalid tittle field"}
+	}
+
+	if db.Table("users").Find(u, userID).RecordNotFound() {
+		return echo.ErrNotFound
+	}
+
+	if err := db.Create(g); err == nil {
+		return &echo.HTTPError{Code: http.StatusInternalServerError, Message: "Couldn't save gig"}
+	}
+
+	db.Create(g)
+	defer db.Close()
+	return c.JSON(http.StatusCreated, g)
 }
