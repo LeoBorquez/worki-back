@@ -2,18 +2,13 @@ package model
 
 import (
 	"fmt"
-	"github.com/jinzhu/gorm"
-	"github.com/joho/godotenv"
 	"os"
+
+	"github.com/jinzhu/gorm"
 )
 
-// Setup the database
+// SetupDB the database
 func SetupDB() *gorm.DB {
-	// Load the .env file
-	env := godotenv.Load()
-	if env != nil {
-		fmt.Print(env)
-	}
 
 	username := os.Getenv("db_user")
 	password := os.Getenv("db_pass")
@@ -23,13 +18,13 @@ func SetupDB() *gorm.DB {
 	uri := os.Getenv("DATABASE_URL")
 
 	// Create the Uri
-	dbUri := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=disable password=%s", dbHost, dbPort, username, dbName, password)
+	dbURI := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=disable password=%s", dbHost, dbPort, username, dbName, password)
 	if uri != "" {
-		dbUri = uri
+		dbURI = uri
 	}
 
 	// Database connection
-	db, err := gorm.Open("postgres", dbUri)
+	db, err := gorm.Open("postgres", dbURI)
 	if err != nil {
 		panic(err)
 	}

@@ -8,6 +8,7 @@ import (
 	"github.com/LeoBorquez/workiBack/handler"
 	"github.com/LeoBorquez/workiBack/model"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
+	"github.com/joho/godotenv"
 	"github.com/labstack/echo/middleware"
 	"github.com/labstack/gommon/log"
 
@@ -16,7 +17,14 @@ import (
 
 func main() {
 
+	// Load the .env file
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
 	cors := os.Getenv("cors_url")
+	fmt.Printf("value cors %v", cors)
 	// Start echo
 	e := echo.New()
 	e.Logger.SetLevel(log.ERROR)
