@@ -2,22 +2,29 @@ package main
 
 import (
 	"fmt"
+	"net/http"
+	"os"
+
 	"github.com/LeoBorquez/workiBack/handler"
 	"github.com/LeoBorquez/workiBack/model"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/labstack/echo/middleware"
 	"github.com/labstack/gommon/log"
-	"os"
 
 	"github.com/labstack/echo"
 )
 
 func main() {
 
+	cors := os.Getenv("cors_url")
 	// Start echo
 	e := echo.New()
 	e.Logger.SetLevel(log.ERROR)
 	e.Use(middleware.Logger())
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{cors},
+		AllowMethods: []string{http.MethodGet, http.MethodPut, http.MethodPost, http.MethodDelete},
+	}))
 	e.Use(middleware.JWTWithConfig(middleware.JWTConfig{
 		SigningKey: []byte(handler.Key),
 		Skipper: func(c echo.Context) bool {
@@ -38,14 +45,14 @@ func main() {
 	e.POST("/login", h.Login)
 	e.POST("/gigs", h.CreateGig)
 
-	port := GetPort()
+	port := getPort()
 	fmt.Println("[-] Listening on ...", port)
 
 	e.Logger.Fatal(e.Start(port))
 
 }
 
-func GetPort() string {
+func getPort() string {
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "1323"
