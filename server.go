@@ -25,6 +25,7 @@ func main() {
 
 	cors := os.Getenv("cors_url")
 	fmt.Printf("value cors %v", cors)
+
 	// Start echo
 	e := echo.New()
 	e.Logger.SetLevel(log.ERROR)
