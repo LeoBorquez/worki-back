@@ -24,7 +24,7 @@ func main() {
 	}
 
 	cors := os.Getenv("cors_url")
-	fmt.Printf("value cors %v", cors)
+	fmt.Printf("value cors %v\n", cors)
 
 	// Start echo
 	e := echo.New()
@@ -46,7 +46,7 @@ func main() {
 
 	// Connect to the database
 	db := model.SetupDB()
-	//defer db.Close()
+
 	// Handler
 	h := &handler.Handler{DB: db}
 
