@@ -46,7 +46,7 @@ func (h *Handler) CreateGig(c echo.Context) (err error) {
 func (h *Handler) FetchGig(c echo.Context) (err error) {
 	userID := userIDFromToken(c)
 	if userID == 0 {
-		return &echo.HTTPError{Code: http.StatusBadRequest, Message: "Login requested"}
+		return &echo.HTTPError{Code: http.StatusUnauthorized, Message: "Login requested"}
 	}
 
 	page, _ := strconv.Atoi(c.QueryParam("page"))

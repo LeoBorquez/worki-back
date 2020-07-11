@@ -1,6 +1,10 @@
 package model
 
-import "github.com/jinzhu/gorm"
+import (
+	"time"
+
+	"github.com/jinzhu/gorm"
+)
 
 // User table : user
 type User struct {
@@ -11,4 +15,12 @@ type User struct {
 	Phone    string `gorm:"type:varchar(9)"`
 	Password string
 	Token    string
+}
+
+// CreateUser struct
+type CreateUser struct {
+	ID        uint `gorm:"primary_key"`
+	CreatedAt time.Time
+	Email     string `gorm:"type:varchar(100);unique_index"`
+	Password  string
 }

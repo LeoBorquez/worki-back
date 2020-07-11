@@ -12,16 +12,17 @@ import (
 // Signup user handler
 func (h *Handler) Signup(c echo.Context) (err error) {
 	// Bind
-	u := &model.User{}
-	if err = c.Bind(u); err != nil {
+	uc := &model.CreateUser{}
+	if err = c.Bind(uc); err != nil {
 		return
 	}
 	// Validate
-	if u.Email == "" || u.Password == "" {
+	if uc.Email == "" || uc.Password == "" {
 		return &echo.HTTPError{Code: http.StatusBadRequest, Message: "invalid email or password"}
 	}
 
 	// Save user
+	u := &model.User{Email: uc.Email, Password: uc.Password}
 	db := h.DB
 	if err := db.Create(u); err == nil {
 		return &echo.HTTPError{Code: http.StatusInternalServerError, Message: "Couldn't save user"}
@@ -63,6 +64,20 @@ func (h *Handler) Login(c echo.Context) (err error) {
 	}
 
 	u.Password = "" // Delete password in response
+
+	return c.JSON(http.StatusOK, u)
+}
+
+// UpdateUser the user by id
+func (h *Handler) UpdateUser(c echo.Context) (err error) {
+	userID := userIDFromToken(c)
+
+	db := h.DB
+	u := &model.User{}
+
+	if err := db.First(u, userID).Error; err != nil {
+		return &echo.HTTPError{Code: http.StatusNotFound, Message: "Record not found"}
+	}
 
 	return c.JSON(http.StatusOK, u)
 }
