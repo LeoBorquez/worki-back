@@ -54,7 +54,7 @@ func (h *Handler) Login(c echo.Context) (err error) {
 
 	// Set Claims
 	claims := token.Claims.(jwt.MapClaims)
-	claims["id"] = u.ID
+	claims["id"] = u.ID // add the id to the token
 	claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
 
 	// Generate encoded token and send it as response
