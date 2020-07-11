@@ -2,8 +2,10 @@ package handler
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/LeoBorquez/workiBack/model"
+	"github.com/biezhi/gorm-paginator/pagination"
 	"github.com/labstack/echo"
 )
 
@@ -38,4 +40,36 @@ func (h *Handler) CreateGig(c echo.Context) (err error) {
 	db.Create(g)
 
 	return c.JSON(http.StatusCreated, g)
+}
+
+// FetchGig return the last gigs added
+func (h *Handler) FetchGig(c echo.Context) (err error) {
+	userID := userIDFromToken(c)
+	if userID == 0 {
+		return &echo.HTTPError{Code: http.StatusBadRequest, Message: "Login requested"}
+	}
+
+	page, _ := strconv.Atoi(c.QueryParam("page"))
+	limit, _ := strconv.Atoi(c.Param("limit"))
+
+	// Defaults
+	if page == 0 {
+		page = 1
+	}
+	if limit == 0 {
+		limit = 100
+	}
+
+	// Retrieve gigs from databse
+	gigs := []*model.Gig{}
+	db := h.DB
+
+	paginator := pagination.Paging(&pagination.Param{
+		DB:      db,
+		Page:    page,
+		Limit:   limit,
+		OrderBy: []string{"created_at desc"},
+	}, &gigs)
+
+	return c.JSON(http.StatusAccepted, paginator)
 }

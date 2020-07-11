@@ -20,11 +20,11 @@ func main() {
 	// Load the .env file
 	err := godotenv.Load()
 	if err != nil {
-		log.Fatal("Error loading .env file")
+		log.Fatal("[-] Error loading .env file")
 	}
 
 	cors := os.Getenv("cors_url")
-	fmt.Printf("value cors %v\n", cors)
+	fmt.Printf("[-] Value CORS %v\n", cors)
 
 	// Start echo
 	e := echo.New()
@@ -53,6 +53,7 @@ func main() {
 	e.POST("/signup", h.Signup)
 	e.POST("/login", h.Login)
 	e.POST("/gigs", h.CreateGig)
+	e.POST("/feed", h.FetchGig)
 
 	port := getPort()
 	fmt.Println("[-] Listening on ...", port)
