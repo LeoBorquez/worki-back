@@ -11,20 +11,20 @@ import (
 
 // Signup user handler
 func (h *Handler) Signup(c echo.Context) (err error) {
-	// Bind
+	// Bind the struct to the context
 	uc := &model.CreateUser{}
 	if err = c.Bind(uc); err != nil {
-		return
+		return &echo.HTTPError{Code: http.StatusInternalServerError, Message: "Can't bind object"}
 	}
 	// Validate
 	if uc.Email == "" || uc.Password == "" {
-		return &echo.HTTPError{Code: http.StatusBadRequest, Message: "invalid email or password"}
+		return &echo.HTTPError{Code: http.StatusBadRequest, Message: "Invalid email or password"}
 	}
 
 	// Save user
 	u := &model.User{Email: uc.Email, Password: uc.Password}
-	db := h.DB
-	if err := db.Create(u); err == nil {
+
+	if err = h.DB.Create(u).Error; err != nil {
 		return &echo.HTTPError{Code: http.StatusInternalServerError, Message: "Couldn't save user"}
 	}
 
