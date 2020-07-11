@@ -13,7 +13,7 @@ import (
 func (h *Handler) Signup(c echo.Context) (err error) {
 	// Bind the struct to the context
 	uc := &model.CreateUser{}
-	if err = c.Bind(uc); err != nil {
+	if err := c.Bind(uc); err != nil {
 		return &echo.HTTPError{Code: http.StatusInternalServerError, Message: "Can't bind object"}
 	}
 	// Validate
@@ -24,7 +24,7 @@ func (h *Handler) Signup(c echo.Context) (err error) {
 	// Save user
 	u := &model.User{Email: uc.Email, Password: uc.Password}
 
-	if err = h.DB.Create(u).Error; err != nil {
+	if err := h.DB.Create(u).Error; err != nil {
 		return &echo.HTTPError{Code: http.StatusInternalServerError, Message: "Couldn't save user"}
 	}
 
@@ -72,10 +72,15 @@ func (h *Handler) Login(c echo.Context) (err error) {
 func (h *Handler) UpdateUser(c echo.Context) (err error) {
 	userID := userIDFromToken(c)
 
-	db := h.DB
+	// Bind
+	update := &model.UpdateUser{}
+	if err := c.Bind(update); err != nil {
+		return &echo.HTTPError{Code: http.StatusInternalServerError, Message: "Can't bind object"}
+	}
+
 	u := &model.User{}
 
-	if err := db.First(u, userID).Error; err != nil {
+	if err := h.DB.First(u, userID).Error; err != nil {
 		return &echo.HTTPError{Code: http.StatusNotFound, Message: "Record not found"}
 	}
 

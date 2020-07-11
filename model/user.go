@@ -1,8 +1,6 @@
 package model
 
 import (
-	"time"
-
 	"github.com/jinzhu/gorm"
 )
 
@@ -19,8 +17,15 @@ type User struct {
 
 // CreateUser struct
 type CreateUser struct {
-	ID        uint `gorm:"primary_key"`
-	CreatedAt time.Time
-	Email     string `gorm:"type:varchar(100);unique_index"`
-	Password  string
+	Email    string `gorm:"type:varchar(100);unique_index"`
+	Password string
+}
+
+// UpdateUser struct
+type UpdateUser struct {
+	Name     string
+	LastName string
+	Phone    string `gorm:"type:varchar(9)"`
+	Email    string `gorm:"type:varchar(100);unique_index"`
+	Password string
 }
