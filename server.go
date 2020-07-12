@@ -23,7 +23,7 @@ func main() {
 		log.Fatal("[-] Error loading .env file")
 	}
 
-	cors := os.Getenv("cors_url")
+	cors := os.Getenv("cors")
 	fmt.Printf("[-] Value CORS %v\n", cors)
 
 	// Start echo
@@ -47,7 +47,7 @@ func main() {
 	// Connect to the database
 	db := model.SetupDB()
 
-	// Handler
+	// Handler "receiver" attached to the function type
 	h := &handler.Handler{DB: db}
 
 	e.POST("/signup", h.Signup)

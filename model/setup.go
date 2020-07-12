@@ -16,6 +16,7 @@ func SetupDB() *gorm.DB {
 	dbHost := os.Getenv("db_host")
 	dbPort := os.Getenv("db_port")
 	uri := os.Getenv("DATABASE_URL")
+	dev := os.Getenv("dev")
 
 	// Create the Uri
 	dbURI := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=disable password=%s", dbHost, dbPort, username, dbName, password)
@@ -31,6 +32,10 @@ func SetupDB() *gorm.DB {
 
 	// Migrate model
 	db.Debug().AutoMigrate(&User{}, &Gig{})
+
+	if dev == "y" {
+		FakeGig(db)
+	}
 
 	return db
 }

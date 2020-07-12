@@ -7,17 +7,17 @@ import (
 // User table : user
 type User struct {
 	gorm.Model
-	Name     string
-	LastName string
-	Email    string `gorm:"type:varchar(100);unique_index"`
-	Phone    string `gorm:"type:varchar(9)"`
+	Name     string `gorm:"size:35"`
+	LastName string `gorm:"size:35"`
+	Email    string `gorm:"type:varchar(255);unique_index"`
+	Phone    string `gorm:"type:varchar(10)"`
 	Password string
 	Token    string
 }
 
 // CreateUser struct
 type CreateUser struct {
-	Email    string `gorm:"type:varchar(100);unique_index"`
+	Email    string `gorm:"type:varchar(255);unique_index"`
 	Password string
 }
 
