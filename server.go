@@ -54,6 +54,7 @@ func main() {
 	e.POST("/login", h.Login)
 	e.POST("/gigs", h.CreateGig)
 	e.GET("/feed", h.FetchGig)
+	e.PATCH("/users/:id", h.UpdateUser)
 
 	port := getPort()
 	fmt.Println("[-] Listening on ...", port)

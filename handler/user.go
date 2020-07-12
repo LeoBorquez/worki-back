@@ -40,8 +40,7 @@ func (h *Handler) Login(c echo.Context) (err error) {
 	}
 
 	// Find user
-	db := h.DB
-	if err = db.Table("users").Find(u, "email = ? and password = ?", u.Email, u.Password).Error; err != nil {
+	if err := h.DB.Table("users").Find(u, "email = ? and password = ?", u.Email, u.Password).Error; err != nil {
 		return &echo.HTTPError{Code: http.StatusUnauthorized, Message: "invalid email or password"}
 	}
 
@@ -78,10 +77,20 @@ func (h *Handler) UpdateUser(c echo.Context) (err error) {
 		return &echo.HTTPError{Code: http.StatusInternalServerError, Message: "Can't bind object"}
 	}
 
+	// Model to update
 	u := &model.User{}
-
+	// Find the record by ID
 	if err := h.DB.First(u, userID).Error; err != nil {
 		return &echo.HTTPError{Code: http.StatusNotFound, Message: "Record not found"}
+	}
+
+	// Validations
+	if update.Name == "" || update.LastName == "" || update.Phone == "" || update.Email == "" {
+		return &echo.HTTPError{Code: http.StatusBadRequest, Message: "Fields cannot be empty"}
+	}
+
+	if err := h.DB.Model(u).Updates(update).Error; err != nil {
+		return &echo.HTTPError{Code: http.StatusConflict, Message: "The user cannot be updated"}
 	}
 
 	return c.JSON(http.StatusOK, u)
