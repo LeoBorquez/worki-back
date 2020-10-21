@@ -30,12 +30,14 @@ func SetupDB() *gorm.DB {
 		panic(err)
 	}
 
-	// Migrate model
-	db.Debug().AutoMigrate(&User{}, &Gig{})
-
+	// Drop tables for development
 	if dev == "y" {
+		db.Debug().DropTableIfExists(&Gig{})
+		db.Debug().AutoMigrate(&User{}, &Gig{})
 		FakeGig(db)
 	}
+	// Migrate model
+	db.Debug().AutoMigrate(&User{}, &Gig{})
 
 	return db
 }

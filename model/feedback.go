@@ -8,5 +8,5 @@ import (
 type Feedback struct {
 	gorm.Model
 	UserID uint `gorm:"FOREIGNKEY"`
-	Rate uint `gorm:`
+	Rate   uint
 }
