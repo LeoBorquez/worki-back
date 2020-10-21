@@ -25,7 +25,7 @@ type CreateUser struct {
 type UpdateUser struct {
 	Name     string
 	LastName string
-	Phone    string `gorm:"type:varchar(9)"`
+	Phone    string `gorm:"type:varchar(10)"`
 	Email    string `gorm:"type:varchar(100);unique_index"`
 	Password string
 }
