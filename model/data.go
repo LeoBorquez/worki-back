@@ -14,13 +14,14 @@ func FakeGig(db *gorm.DB) {
 
 	for i := 0; i < 100; i++ {
 		g := Gig{
-			UserID:   uint(gofakeit.Number(1, 3)),
-			Tittle:   gofakeit.Sentence(3),
-			Description:     gofakeit.Paragraph(1, 3, 55, " "),
-			Image:    gofakeit.ImageURL(500, 500),
-			Pay:     gofakeit.Price(10, 100),
-			Location: gofakeit.City(),
-			IsActive: true,
+			UserID:      uint(gofakeit.Number(1, 3)),
+			CategoryID:  uint(gofakeit.Number(1, 10)),
+			Tittle:      gofakeit.Sentence(3),
+			Description: gofakeit.Paragraph(1, 3, 55, " "),
+			Image:       gofakeit.ImageURL(500, 500),
+			Pay:         gofakeit.Price(10, 100),
+			Location:    gofakeit.City(),
+			IsActive:    true,
 		}
 		gigs = append(gigs, g)
 	}

@@ -23,7 +23,7 @@ func main() {
 		log.Fatal("[-] Error loading .env file")
 	}
 
-	cors := os.Getenv("cors")
+	cors := os.Getenv("CORS")
 	fmt.Printf("[-] Value CORS %v\n", cors)
 
 	// Start echo

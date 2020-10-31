@@ -3,6 +3,7 @@ package model
 import (
 	"fmt"
 	"os"
+	"strconv"
 
 	"github.com/jinzhu/gorm"
 )
@@ -16,7 +17,10 @@ func SetupDB() *gorm.DB {
 	dbHost := os.Getenv("DB_HOST")
 	dbPort := os.Getenv("DB_PORT")
 	uri := os.Getenv("DATABASE_URL")
-	dev := os.Getenv("DEV")
+	dev, err := strconv.ParseBool(os.Getenv("DEV"))
+	if err != nil {
+		fmt.Println("Define enviroment")
+	}
 
 	// Create the Uri
 	dbURI := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=disable password=%s", dbHost, dbPort, username, dbName, password)
@@ -31,7 +35,8 @@ func SetupDB() *gorm.DB {
 	}
 
 	// Drop tables for development
-	if dev == "y" {
+	if dev == true {
+		fmt.Println("[-] Dropping tables")
 		db.Debug().DropTableIfExists(&Gig{})
 		db.Debug().AutoMigrate(&User{}, &Gig{})
 		FakeGig(db)
