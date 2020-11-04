@@ -12,6 +12,7 @@ type User struct {
 	Email    string `gorm:"type:varchar(255);unique_index"`
 	Phone    string `gorm:"type:varchar(10)"`
 	Password string
+	UserType string
 	Token    string
 }
 

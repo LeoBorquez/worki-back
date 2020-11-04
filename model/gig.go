@@ -15,4 +15,5 @@ type Gig struct {
 	Pay         float64
 	Location    string `sql:"location"`
 	IsActive    bool   `sql:"is_activate"`
+	Proposals   []Proposal
 }

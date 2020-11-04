@@ -10,4 +10,5 @@ type Proposal struct {
 	UserID      uint   `gorm:"FOREIGNKEY"`
 	GigID       uint   `gorm:"FOREIGNKEY"`
 	Description string `sql:"description"`
+	Pay         float64
 }
