@@ -41,15 +41,16 @@ func FakeProposal(db *gorm.DB) {
 
 	for i := 0; i < 100; i++ {
 		p := Proposal{
-			ProposalID: uint(gofakeit.Number(1, 100)),
-			UserID:     uint(gofakeit.Number(1, 3)),
-			GigID: uint(gofakeit.Number(1, 3)),
+			UserID:      uint(gofakeit.Number(1, 3)),
+			GigID:       uint(gofakeit.Number(1, 3)),
+			Description: gofakeit.Paragraph(1, 3, 55, " "),
+			Pay:         gofakeit.Price(10, 1000),
 		}
 		proposals = append(proposals, p)
 	}
 
-	for _, prop := range proposals{
-		if err := db.Create(%prop).Error; err != nil {
+	for _, prop := range proposals {
+		if err := db.Create(&prop).Error; err != nil {
 			fmt.Print(err)
 		}
 	}
