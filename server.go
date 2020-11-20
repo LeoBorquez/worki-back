@@ -23,6 +23,7 @@ func main() {
 		log.Fatal("[-] Error loading .env file")
 	}
 
+	// fmt.Printf("%v, %T\n", const, const) print value and type of const
 	cors := os.Getenv("CORS")
 	fmt.Printf("[-] Value CORS %v\n", cors)
 

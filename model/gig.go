@@ -7,7 +7,7 @@ import (
 // Gig table name : gigs
 type Gig struct {
 	gorm.Model         // id, created, updated
-	UserID      uint   `gorm:"FOREIGNKEY"`
+	UserID      uint   `gorm:"FOREIGNKEY"` //change to uint32
 	CategoryID  uint   `gorm:"FOREIGNKEY"`
 	Tittle      string `gorm:"size:255"`
 	Description string `sql:"description"`
