@@ -17,6 +17,8 @@ import (
 
 func main() {
 
+	cfg := LoadConfig()
+	fmt.Println(cfg.Host)
 	// Load the .env file
 	err := godotenv.Load()
 	if err != nil {

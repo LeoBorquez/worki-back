@@ -9,12 +9,17 @@ import (
 
 // Config struct
 type Config struct {
-	Debug bool   `default:"false"`
-	Host  string `default:"localhost"`
-	Port  string `default:"5432"`
+	Debug   bool `default:"false"`
+	Cors    string
+	Host    string
+	Port    int
+	User    string
+	Name    string
+	SSLmode string
+	Pass    string
 }
 
-// LoadConfig laod all the .env file to read the enviroment config
+// LoadConfig load all the .env file to read the enviroment config
 func LoadConfig() *Config {
 	_ = godotenv.Load()
 
@@ -23,6 +28,5 @@ func LoadConfig() *Config {
 	if err != nil {
 		log.Fatal(err.Error())
 	}
-
 	return &cfg
 }
