@@ -12,21 +12,25 @@ type Config struct {
 	Debug   bool `default:"false"`
 	Cors    string
 	Host    string
-	Port    int
-	User    string
-	Name    string
+	Port    string `default:"5432"`
+	UserDB  string
+	NameDB  string
+	PassDB  string
 	SSLmode string
-	Pass    string
 }
 
 // LoadConfig load all the .env file to read the enviroment config
 func LoadConfig() *Config {
-	_ = godotenv.Load()
+	// Load the .env file
+	env := godotenv.Load()
+	if env != nil {
+		log.Fatalf("Error loading .env file")
+	}
 
 	var cfg Config
 	err := envconfig.Process("BACK", &cfg)
 	if err != nil {
-		log.Fatal(err.Error())
+		log.Fatalf(err.Error())
 	}
 	return &cfg
 }

@@ -8,25 +8,18 @@ import (
 	"github.com/LeoBorquez/workiBack/handler"
 	"github.com/LeoBorquez/workiBack/model"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
-	"github.com/joho/godotenv"
+	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 	"github.com/labstack/gommon/log"
-
-	"github.com/labstack/echo"
 )
 
 func main() {
 
 	cfg := LoadConfig()
 	fmt.Println(cfg.Host)
-	// Load the .env file
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("[-] Error loading .env file")
-	}
 
 	// fmt.Printf("%v, %T\n", const, const) print value and type of const
-	cors := os.Getenv("CORS")
+	cors := cfg.Cors
 	fmt.Printf("[-] Value CORS %v\n", cors)
 
 	// Start echo
