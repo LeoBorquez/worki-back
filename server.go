@@ -5,8 +5,9 @@ import (
 	"net/http"
 	"os"
 
+	"./workiBack/model"
+
 	"github.com/LeoBorquez/workiBack/handler"
-	"github.com/LeoBorquez/workiBack/model"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
@@ -23,7 +24,7 @@ func main() {
 	fmt.Printf("[-] Value CORS %v\n", cors)
 
 	// Connect to the database
-	db := model.SetupDB(cfg)
+	db := model.SetupDB()
 
 	// Handler "receiver" attached to the function type
 	h := &handler.Handler{DB: db}
