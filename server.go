@@ -22,6 +22,12 @@ func main() {
 	cors := cfg.Cors
 	fmt.Printf("[-] Value CORS %v\n", cors)
 
+	// Connect to the database
+	db := model.SetupDB(cfg)
+
+	// Handler "receiver" attached to the function type
+	h := &handler.Handler{DB: db}
+
 	// Start echo
 	e := echo.New()
 	e.Logger.SetLevel(log.ERROR)
@@ -39,12 +45,6 @@ func main() {
 			return false
 		},
 	}))
-
-	// Connect to the database
-	db := model.SetupDB()
-
-	// Handler "receiver" attached to the function type
-	h := &handler.Handler{DB: db}
 
 	e.POST("/signup", h.Signup)
 	e.POST("/login", h.Login)
