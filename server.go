@@ -5,9 +5,10 @@ import (
 	"net/http"
 	"os"
 
-	"./workiBack/model"
-
+	"github.com/LeoBorquez/workiBack/config"
 	"github.com/LeoBorquez/workiBack/handler"
+	"github.com/LeoBorquez/workiBack/model"
+
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
@@ -16,7 +17,7 @@ import (
 
 func main() {
 
-	cfg := LoadConfig()
+	cfg := config.LoadConfig()
 	fmt.Println(cfg.Host)
 
 	// fmt.Printf("%v, %T\n", const, const) print value and type of const
