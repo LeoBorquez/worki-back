@@ -9,13 +9,14 @@ import (
 
 // Config struct
 type Config struct {
-	Debug   bool `default:"false"`
+	Dev     bool `default:"false"`
 	Cors    string
-	Host    string
-	Port    string `default:"5432"`
+	HostDB  string
+	PortDB  string `default:"5432"`
 	UserDB  string
 	NameDB  string
 	PassDB  string
+	URI     string `default:""`
 	SSLmode string
 }
 
