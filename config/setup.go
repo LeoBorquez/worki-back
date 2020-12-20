@@ -1,17 +1,19 @@
-package model
+package config
 
 import (
 	"fmt"
 	"os"
 	"strconv"
 
+	"github.com/LeoBorquez/workiBack/model"
 	"github.com/jinzhu/gorm"
 )
 
 // SetupDB the database
-func SetupDB() *gorm.DB {
+func SetupDB(cfg *Config) *gorm.DB {
 
-	username := os.Getenv("DB_USER")
+	username := cfg.NameDB
+	fmt.Println(username)
 	password := os.Getenv("DB_PASS")
 	dbName := os.Getenv("DB_NAME")
 	dbHost := os.Getenv("DB_HOST")
@@ -37,13 +39,13 @@ func SetupDB() *gorm.DB {
 	// Drop tables for development
 	if dev == true {
 		fmt.Println("[-] Dropping tables")
-		db.Debug().DropTableIfExists(&Gig{})
-		db.Debug().AutoMigrate(&User{}, &Gig{}, &Proposal{})
+		db.Debug().DropTableIfExists(model.Gig{})
+		db.Debug().AutoMigrate(model.User{}, model.Gig{}, model.Proposal{})
 		fmt.Println("[-] Creating faking data")
-		FakeGig(db)
+		model.FakeGig(db)
 	}
 	// Migrate model
-	db.Debug().AutoMigrate(&User{}, &Gig{})
+	db.Debug().AutoMigrate(model.User{}, model.Gig{})
 
 	return db
 }

@@ -7,7 +7,6 @@ import (
 
 	"github.com/LeoBorquez/workiBack/config"
 	"github.com/LeoBorquez/workiBack/handler"
-	"github.com/LeoBorquez/workiBack/model"
 
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/labstack/echo"
@@ -18,14 +17,14 @@ import (
 func main() {
 
 	cfg := config.LoadConfig()
-	fmt.Println(cfg.Host)
+	fmt.Println(cfg.NameDB)
 
 	// fmt.Printf("%v, %T\n", const, const) print value and type of const
 	cors := cfg.Cors
 	fmt.Printf("[-] Value CORS %v\n", cors)
 
 	// Connect to the database
-	db := model.SetupDB()
+	db := config.SetupDB(cfg)
 
 	// Handler "receiver" attached to the function type
 	h := &handler.Handler{DB: db}
