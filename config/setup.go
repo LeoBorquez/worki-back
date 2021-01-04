@@ -21,13 +21,12 @@ func SetupDB(cfg *Config) *gorm.DB {
 		fmt.Println("Running on Production Enviroment")
 	}
 
-	fmt.Printf("host=%s port=%s user=%s dbname=%s sslmode=disable password=%s", dbHost, dbPort, username, dbName, password)
-
 	// Create the Uri
 	dbURI := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=disable password=%s", dbHost, dbPort, username, dbName, password)
 	if uri != "" {
 		dbURI = uri
 	}
+	fmt.Println("[-] URI db", dbURI)
 
 	// Database connection
 	db, err := gorm.Open("postgres", dbURI)
