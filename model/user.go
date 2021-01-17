@@ -20,6 +20,9 @@ type User struct {
 type CreateUser struct {
 	Email    string `gorm:"type:varchar(255);unique_index"`
 	Password string
+	handler  struct {
+		db map[string]*User
+	}
 }
 
 // UpdateUser struct

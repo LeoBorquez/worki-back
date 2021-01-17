@@ -37,7 +37,7 @@ func SetupDB(cfg *Config) *gorm.DB {
 	// Drop tables for development
 	if dev == true {
 		fmt.Println("[-] Dropping tables")
-		db.Debug().DropTableIfExists(model.Gig{})
+		db.Debug().DropTableIfExists(model.Gig{}, model.User{}, model.Proposal{})
 		db.Debug().AutoMigrate(model.User{}, model.Gig{}, model.Proposal{})
 		fmt.Println("[-] Creating faking data")
 		model.FakeGig(db)
