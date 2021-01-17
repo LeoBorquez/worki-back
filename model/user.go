@@ -20,9 +20,6 @@ type User struct {
 type CreateUser struct {
 	Email    string `gorm:"type:varchar(255);unique_index"`
 	Password string
-	handler  struct {
-		db map[string]*User
-	}
 }
 
 // UpdateUser struct
@@ -32,4 +29,8 @@ type UpdateUser struct {
 	Phone    string `gorm:"type:varchar(10)"`
 	Email    string `gorm:"type:varchar(100);unique_index"`
 	Password string
+}
+
+type handler struct {
+	db map[string]*User
 }

@@ -12,9 +12,9 @@ import (
 
 var (
 	mockDB = map[string]*model.CreateUser{
-		"jon@labstack.com": &CreateUser{"Jon Snow", "jon@labstack.com"},
+		"jon@mail.com": &model.CreateUser{"Jon Snow", "jon@labstack.com"},
 	}
-	userJSON = `{"name":"Jon Snow", "email:"leoborquez@mail.com"}`
+	userJSON = `{"name":"Jon Snow", "email:"jon@mail.com"}`
 )
 
 func TestCreateUser(t *testing.T) {
