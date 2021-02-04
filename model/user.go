@@ -30,3 +30,7 @@ type UpdateUser struct {
 	Email    string `gorm:"type:varchar(100);unique_index"`
 	Password string
 }
+
+type handler struct {
+	db map[string]*User
+}
