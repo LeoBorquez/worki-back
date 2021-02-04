@@ -1,19 +1,9 @@
-# Worki
+# WORKI
+## worki-back
+This is the currently microservice of worki, built in golang using Echo framework
 
-## Init Golang project
-go mod init github.com/user/project-name
-git init 
-git add .
-git commit -m "initial commit"
-git remote add origin git@github.com:user/project-name.git
-git push -u origin master
+## Installation
+Currently building docker containers for the application
 
-## Folder Structure
-
-my-app
-├── server                   # Go project files
-│   ├── db                   # MongoDB communications
-│   ├── model                # domain objects
-│   ├── web                  # REST APIs, web server
-│   ├── server.go            # the starting point of the server
-│   └── go.mod               # server dependencies
+## License
+[GNU GPLv3](https://choosealicense.com/licenses/gpl-3.0/#)
