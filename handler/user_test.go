@@ -6,8 +6,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/LeoBorquez/workiBack/model"
+	"github.com/LeoBorquez/worki-back/model"
 	"github.com/labstack/echo"
+	"github.com/stretchr/testify/assert"
 )
 
 var (
@@ -24,4 +25,10 @@ func TestCreateUser(t *testing.T) {
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	rec := httptest.NewRecorder()
 	c := e.NewContext(req, rec)
+	h := &Handler{mockDB}
+
+	if assert.NoError(t, h.Signup(c)) {
+		assert.Equal(t, http.StatusCreated, rec.Code)
+		assert.Equal(t, userJSON, rec.Body.String())
+	}
 }
