@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/LeoBorquez/workiBack/model"
+	"github.com/LeoBorquez/worki-back/model"
 	"github.com/biezhi/gorm-paginator/pagination"
 	"github.com/labstack/echo"
 )
