@@ -5,6 +5,9 @@ import (
 
 	"github.com/LeoBorquez/workiBack/model"
 	"github.com/jinzhu/gorm"
+
+	//Only for connection
+	_ "github.com/lib/pq"
 )
 
 // SetupDB the database

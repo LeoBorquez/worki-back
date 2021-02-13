@@ -23,7 +23,7 @@ type Config struct {
 // LoadConfig load all the .env file to read the enviroment config
 func LoadConfig() *Config {
 	// Load the .env file
-	env := godotenv.Load()
+	env := godotenv.Load("../.env")
 	if env != nil {
 		log.Fatalf("Error loading .env file")
 	}
