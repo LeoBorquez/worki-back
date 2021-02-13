@@ -3,7 +3,7 @@ package config
 import (
 	"fmt"
 
-	"github.com/LeoBorquez/workiBack/model"
+	"github.com/LeoBorquez/worki-back/model"
 	"github.com/jinzhu/gorm"
 
 	//Only for connection

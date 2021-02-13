@@ -7,7 +7,6 @@ import (
 	"testing"
 
 	"github.com/LeoBorquez/worki-back/config"
-	"github.com/LeoBorquez/workiBack/handler"
 	"github.com/labstack/echo"
 	"github.com/stretchr/testify/assert"
 )
@@ -25,7 +24,7 @@ func TestCreateUser(t *testing.T) {
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	rec := httptest.NewRecorder()
 	c := e.NewContext(req, rec)
-	h := &handler.Handler{DB: db}
+	h := &Handler{DB: db}
 
 	// Assertions
 	if assert.NoError(t, h.Signup(c)) {
