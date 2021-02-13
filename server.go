@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/LeoBorquez/workiBack/config"
-	"github.com/LeoBorquez/workiBack/handler"
+	"github.com/LeoBorquez/worki-back/config"
+	"github.com/LeoBorquez/worki-back/handler"
 
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/labstack/echo"

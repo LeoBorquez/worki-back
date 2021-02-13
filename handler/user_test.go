@@ -6,15 +6,16 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/LeoBorquez/workiBack/model"
+	"github.com/LeoBorquez/worki-back/config"
+	"github.com/LeoBorquez/workiBack/handler"
 	"github.com/labstack/echo"
+	"github.com/stretchr/testify/assert"
 )
 
 var (
-	mockDB = map[string]*model.CreateUser{
-		"jon@mail.com": &model.CreateUser{"Jon Snow", "jon@labstack.com"},
-	}
-	userJSON = `{"name":"Jon Snow", "email:"jon@mail.com"}`
+	userJSON = `{"Email":"jon@labstack.com", "Password":"testing"}`
+	cfg      = config.LoadConfig()
+	db       = config.SetupDB(cfg)
 )
 
 func TestCreateUser(t *testing.T) {
@@ -24,4 +25,12 @@ func TestCreateUser(t *testing.T) {
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	rec := httptest.NewRecorder()
 	c := e.NewContext(req, rec)
+	h := &handler.Handler{DB: db}
+
+	// Assertions
+	if assert.NoError(t, h.Signup(c)) {
+		assert.Equal(t, http.StatusCreated, rec.Code)
+		assert.Equal(t, userJSON, rec.Body.String())
+	}
+
 }

@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/LeoBorquez/workiBack/model"
+	"github.com/LeoBorquez/worki-back/model"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
 )
