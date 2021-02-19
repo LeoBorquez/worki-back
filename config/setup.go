@@ -25,7 +25,7 @@ func SetupDB(cfg *Config) *gorm.DB {
 	}
 
 	// Create the Uri
-	dbURI := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=disable password=%s", dbHost, dbPort, username, dbName, password)
+	dbURI := fmt.Sprintf("host=%s port=%s test=%s dbname=%s sslmode=disable password=%s", dbHost, dbPort, username, dbName, password)
 	if uri != "" {
 		dbURI = uri
 	}

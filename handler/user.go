@@ -1,20 +1,15 @@
-package user
+package handler
 
 import (
 	"net/http"
 	"time"
 
-	"github.com/LeoBorquez/worki-back/handler"
 	"github.com/LeoBorquez/worki-back/model"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
 )
 
-type Handler struct {
-	*handler.Handler
-}
-
-// Signup user handler
+// Signup test handler
 func (h *Handler) Signup(c echo.Context) (err error) {
 	// Bind the struct to the context
 	uc := new(model.CreateUser)
@@ -26,17 +21,17 @@ func (h *Handler) Signup(c echo.Context) (err error) {
 		return &echo.HTTPError{Code: http.StatusBadRequest, Message: "Invalid email or password"}
 	}
 
-	// Save user
+	// Save test
 	u := model.User{Email: uc.Email, Password: uc.Password}
 
 	if err := h.DB.Create(u).Error; err != nil {
-		return &echo.HTTPError{Code: http.StatusInternalServerError, Message: "Couldn't save user"}
+		return &echo.HTTPError{Code: http.StatusInternalServerError, Message: "Couldn't save test"}
 	}
 
 	return c.JSON(http.StatusCreated, u)
 }
 
-// Login user
+// Login test
 func (h *Handler) Login(c echo.Context) (err error) {
 	// Bind
 	u := &model.User{}
@@ -44,7 +39,7 @@ func (h *Handler) Login(c echo.Context) (err error) {
 		return
 	}
 
-	// Find user
+	// Find test
 	if err := h.DB.Table("users").Find(u, "email = ? and password = ?", u.Email, u.Password).Error; err != nil {
 		return &echo.HTTPError{Code: http.StatusUnauthorized, Message: "invalid email or password"}
 	}
@@ -62,7 +57,7 @@ func (h *Handler) Login(c echo.Context) (err error) {
 	claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
 
 	// Generate encoded token and send it as response
-	u.Token, err = token.SignedString([]byte(handler.Key))
+	u.Token, err = token.SignedString([]byte(Key))
 	if err != nil {
 		return err
 	}
@@ -72,7 +67,7 @@ func (h *Handler) Login(c echo.Context) (err error) {
 	return c.JSON(http.StatusOK, u)
 }
 
-// UpdateUser the user by id
+// UpdateUser the test by id
 func (h *Handler) UpdateUser(c echo.Context) (err error) {
 	userID := UserIDFromToken(c)
 
@@ -95,15 +90,15 @@ func (h *Handler) UpdateUser(c echo.Context) (err error) {
 	}
 
 	if err := h.DB.Model(u).Updates(update).Error; err != nil {
-		return &echo.HTTPError{Code: http.StatusConflict, Message: "The user cannot be updated"}
+		return &echo.HTTPError{Code: http.StatusConflict, Message: "The test cannot be updated"}
 	}
 
 	return c.JSON(http.StatusOK, u)
 }
 
-// Get user ID
+// Get test ID
 func UserIDFromToken(c echo.Context) uint {
-	user := c.Get("user").(*jwt.Token)
+	user := c.Get("test").(*jwt.Token)
 	claims := user.Claims.(jwt.MapClaims)
 
 	return uint(claims["id"].(float64))

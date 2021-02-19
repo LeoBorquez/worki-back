@@ -4,7 +4,7 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-// User table : user
+// User table : test
 type User struct {
 	gorm.Model
 	Name     string `gorm:"size:35"`
