@@ -1,13 +1,18 @@
-package handler
+package user
 
 import (
 	"net/http"
 	"time"
 
+	"github.com/LeoBorquez/worki-back/handler"
 	"github.com/LeoBorquez/worki-back/model"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
 )
+
+type Handler struct {
+	*handler.Handler
+}
 
 // Signup user handler
 func (h *Handler) Signup(c echo.Context) (err error) {
@@ -57,7 +62,7 @@ func (h *Handler) Login(c echo.Context) (err error) {
 	claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
 
 	// Generate encoded token and send it as response
-	u.Token, err = token.SignedString([]byte(Key))
+	u.Token, err = token.SignedString([]byte(handler.Key))
 	if err != nil {
 		return err
 	}
@@ -69,7 +74,7 @@ func (h *Handler) Login(c echo.Context) (err error) {
 
 // UpdateUser the user by id
 func (h *Handler) UpdateUser(c echo.Context) (err error) {
-	userID := userIDFromToken(c)
+	userID := UserIDFromToken(c)
 
 	// Bind
 	update := &model.UpdateUser{}
@@ -97,7 +102,7 @@ func (h *Handler) UpdateUser(c echo.Context) (err error) {
 }
 
 // Get user ID
-func userIDFromToken(c echo.Context) uint {
+func UserIDFromToken(c echo.Context) uint {
 	user := c.Get("user").(*jwt.Token)
 	claims := user.Claims.(jwt.MapClaims)
 

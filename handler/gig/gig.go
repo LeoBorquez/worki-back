@@ -1,9 +1,10 @@
-package handler
+package gig
 
 import (
 	"net/http"
 	"strconv"
 
+	"github.com/LeoBorquez/worki-back/handler/user"
 	"github.com/LeoBorquez/worki-back/model"
 	"github.com/biezhi/gorm-paginator/pagination"
 	"github.com/labstack/echo"
@@ -13,7 +14,7 @@ import (
 func (h *Handler) CreateGig(c echo.Context) (err error) {
 
 	db := h.DB
-	userID := userIDFromToken(c)
+	userID := user.UserIDFromToken(c)
 
 	g := &model.Gig{}
 	u := &model.User{}
@@ -44,7 +45,7 @@ func (h *Handler) CreateGig(c echo.Context) (err error) {
 
 // FetchGig return the last gigs added
 func (h *Handler) FetchGig(c echo.Context) (err error) {
-	userID := userIDFromToken(c)
+	userID := user.userIDFromToken(c)
 	if userID == 0 {
 		return &echo.HTTPError{Code: http.StatusUnauthorized, Message: "Login requested"}
 	}
