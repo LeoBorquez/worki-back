@@ -1,5 +1,7 @@
 github.com/BurntSushi/toml v0.3.1 h1:WXkYYl6Yr3qBf1K79EBnL4mak0OimBfB0XUf9Vl28OQ=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
+github.com/DATA-DOG/go-sqlmock v1.5.0 h1:Shsta01QNfFxHCfpW6YH2STWB0MudeXXEWMr20OEh60=
+github.com/DATA-DOG/go-sqlmock v1.5.0/go.mod h1:f/Ixk793poVmq4qj/V1dPUg2JEAKC73Q5eFN3EC/SaM=
 github.com/LeoBorquez/workiBack v0.0.0-20210204020933-94ee706a12d0 h1:QtcrjwCprYPBctBHj3dWz47A9raWXPz4ZYYx7KtTAGA=
 github.com/LeoBorquez/workiBack v0.0.0-20210204020933-94ee706a12d0/go.mod h1:0XTi6qWKkefirnUcNVgRLLffCbPRs2B0kwVjjGZ5wHA=
 github.com/PuerkitoBio/goquery v1.5.1/go.mod h1:GsLWisAFVj4WgDibEWF4pvYnkVQBpKBKeU+7zCJoLcc=
