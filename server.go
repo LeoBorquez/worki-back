@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"os"
 
 	"github.com/LeoBorquez/worki-back/config"
 	"github.com/LeoBorquez/worki-back/handler"
@@ -14,9 +13,9 @@ import (
 	"github.com/labstack/gommon/log"
 )
 
-func main() {
+var cfg = config.LoadConfig()
 
-	cfg := config.LoadConfig()
+func main() {
 
 	// fmt.Printf("%v, %T\n", const, const) print value and type of const
 	cors := cfg.Cors
@@ -52,18 +51,16 @@ func main() {
 	e.GET("/feed", h.FetchGig)
 	e.PATCH("/users/:id", h.UpdateUser)
 
-	port := getPort()
-	fmt.Println("[-] Listening on ...", port)
-
-	e.Logger.Fatal(e.Start(port))
+	e.Logger.Fatal(e.Start(getPort()))
 
 }
 
 func getPort() string {
-	port := os.Getenv("PORT")
+	port := cfg.Port
 	if port == "" {
 		port = "1323"
 		fmt.Println("[-] No Port Enviroment variable detected. Setting to ", port)
 	}
+
 	return ":" + port
 }

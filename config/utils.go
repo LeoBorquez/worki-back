@@ -18,12 +18,13 @@ type Config struct {
 	PassDB  string
 	URI     string `default:""`
 	SSLmode string
+	Port    string `default:"1323"`
 }
 
 // LoadConfig load all the .env file to read the enviroment config
 func LoadConfig() *Config {
 	// Load the .env file
-	env := godotenv.Load("../.env")
+	env := godotenv.Load()
 	if env != nil {
 		log.Fatalf("Error loading .env file")
 	}
