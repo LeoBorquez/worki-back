@@ -2,6 +2,7 @@ package model
 
 import "github.com/jinzhu/gorm"
 
+// Comment model belongs to Gigs
 type Comment struct {
 	gorm.Model
 	GigID uint `gorm:"FOREINGKEY"`

@@ -19,7 +19,7 @@ func FakeGig(db *gorm.DB) {
 			Tittle:      gofakeit.Sentence(3),
 			Description: gofakeit.Paragraph(1, 3, 55, " "),
 			Image:       gofakeit.ImageURL(500, 500),
-			Pay:         gofakeit.Price(10, 100),
+			Rate:        gofakeit.Price(10, 100),
 			Location:    gofakeit.City(),
 			IsActive:    true,
 		}
@@ -44,7 +44,7 @@ func FakeProposal(db *gorm.DB) {
 			UserID:      uint(gofakeit.Number(1, 3)),
 			GigID:       uint(gofakeit.Number(1, 3)),
 			Description: gofakeit.Paragraph(1, 3, 55, " "),
-			Pay:         gofakeit.Price(10, 1000),
+			RateUser:    gofakeit.Price(10, 1000),
 		}
 		proposals = append(proposals, p)
 	}

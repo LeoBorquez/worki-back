@@ -14,6 +14,7 @@ type User struct {
 	Password string
 	UserType string
 	Bio      string `gorm:"size:300"`
+	Review   string `gorm:"size:500"`
 	GigsDone int
 	Token    string
 }
@@ -31,4 +32,9 @@ type UpdateUser struct {
 	Phone    string `gorm:"type:varchar(10)"`
 	Email    string `gorm:"type:varchar(100);unique_index"`
 	Password string
+}
+
+type LeaveReview struct {
+	UserID uint
+	Review string `gorm:"size:500"`
 }

@@ -12,7 +12,7 @@ type Gig struct {
 	Tittle      string `gorm:"size:255"`
 	Description string `sql:"description"`
 	Image       string `sql:"image"`
-	Pay         float64
+	Rate        float64
 	Location    string `sql:"location"`
 	IsActive    bool   `sql:"is_activate"`
 	Proposals   []Proposal
