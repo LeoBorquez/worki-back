@@ -45,7 +45,7 @@ func main() {
 		},
 	}))
 
-	e.POST("/signup", h.Signup)
+	e.POST("/signup", h.SignUp)
 	e.POST("/login", h.Login)
 	e.POST("/gigs", h.CreateGig)
 	e.GET("/feed", h.FetchGig)

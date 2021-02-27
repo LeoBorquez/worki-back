@@ -13,6 +13,8 @@ type User struct {
 	Phone    string `gorm:"type:varchar(10)"`
 	Password string
 	UserType string
+	Bio      string `gorm:"size:300"`
+	GigsDone int
 	Token    string
 }
 
@@ -29,8 +31,4 @@ type UpdateUser struct {
 	Phone    string `gorm:"type:varchar(10)"`
 	Email    string `gorm:"type:varchar(100);unique_index"`
 	Password string
-}
-
-type handler struct {
-	db map[string]*User
 }

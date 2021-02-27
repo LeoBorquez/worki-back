@@ -10,7 +10,7 @@ import (
 )
 
 // Signup test handler
-func (h *Handler) Signup(c echo.Context) (err error) {
+func (h *Handler) SignUp(c echo.Context) (err error) {
 	// Bind the struct to the context
 	uc := new(model.CreateUser)
 	if err := c.Bind(uc); err != nil {

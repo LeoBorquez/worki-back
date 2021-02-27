@@ -39,7 +39,7 @@ func TestCreateUser(t *testing.T) {
 	h := &handler.Handler{gdb}
 
 	// Assertions
-	if assert.NoError(t, h.Signup(c)) {
+	if assert.NoError(t, h.SignUp(c)) {
 		assert.Equal(t, http.StatusCreated, rec.Code)
 		assert.Equal(t, userJSON, rec.Body.String())
 	}
