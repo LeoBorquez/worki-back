@@ -9,6 +9,8 @@ type Proposal struct {
 	gorm.Model
 	UserID      uint   `gorm:"FOREIGNKEY"`
 	GigID       uint   `gorm:"FOREIGNKEY"`
-	Description string `sql:"description"`
-	RateUser    float64
+	Description string `gorm:"size:500"`
+	Rate        float64
+	TimeFrame   int
+	StatusID    string
 }
