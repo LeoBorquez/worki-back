@@ -9,16 +9,15 @@ import (
 // User table : test
 type User struct {
 	gorm.Model
-	UserTypeID uint   `gorm:"FOREIGNKEY"`
-	Name       string `gorm:"size:35"`
-	LastName   string `gorm:"size:35"`
-	Email      string `gorm:"type:varchar(255);unique_index"`
-	Phone      string `gorm:"type:varchar(10)"`
-	Birth      time.Time
-	Password   string
-	Bio        string `gorm:"size:300"`
-	GigsDone   int
-	Token      string
+	UserTypeID          uint   `gorm:"FOREIGNKEY"`
+	FirstName, LastName string `gorm:"size:35"`
+	Email               string `gorm:"type:varchar(255);unique_index"`
+	Phone               string `gorm:"type:varchar(10)"`
+	Birthday            *time.Time
+	Password            string
+	Bio                 string `gorm:"size:300"`
+	GigsDone            int
+	Token               string
 }
 
 // CreateUser struct

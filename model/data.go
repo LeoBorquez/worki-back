@@ -18,7 +18,7 @@ func FakeGig(db *gorm.DB) {
 			CategoryID:  uint(gofakeit.Number(1, 10)),
 			StatusID:    uint(gofakeit.Number(1, 4)),
 			Tittle:      gofakeit.Sentence(3),
-			Description: gofakeit.Paragraph(1, 3, 55, " "),
+			Description: gofakeit.Paragraph(1, 2, 10, " "),
 			Image:       gofakeit.ImageURL(500, 500),
 			Rate:        gofakeit.Price(10, 100),
 			Location:    gofakeit.City(),
