@@ -1,4 +1,4 @@
-package handler
+package test
 
 import (
 	"database/sql"
@@ -9,6 +9,7 @@ import (
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"
+	"github.com/LeoBorquez/worki-back/handler"
 	"github.com/jinzhu/gorm"
 	"github.com/labstack/echo"
 	"github.com/stretchr/testify/assert"
@@ -35,10 +36,10 @@ func TestCreateUser(t *testing.T) {
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	rec := httptest.NewRecorder()
 	c := e.NewContext(req, rec)
-	h := &Handler{gdb}
+	h := &handler.Handler{gdb}
 
 	// Assertions
-	if assert.NoError(t, h.Signup(c)) {
+	if assert.NoError(t, h.SignUp(c)) {
 		assert.Equal(t, http.StatusCreated, rec.Code)
 		assert.Equal(t, userJSON, rec.Body.String())
 	}

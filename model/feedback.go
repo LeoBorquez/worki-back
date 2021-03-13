@@ -7,8 +7,9 @@ import (
 // Feedback is to review gig publisher
 type Feedback struct {
 	gorm.Model
-	UserID  uint `gorm:"FOREIGNKEY"`
-	GigID   uint `gorm:"FOREIGNKEY"`
-	Rate    uint
-	Comment string
+	UserID      uint `gorm:"FOREIGNKEY"`
+	GigID       uint `gorm:"FOREIGNKEY"`
+	Score       uint
+	Description string
+	Likes       int
 }

@@ -13,7 +13,7 @@ import (
 func (h *Handler) CreateGig(c echo.Context) (err error) {
 
 	db := h.DB
-	userID := userIDFromToken(c)
+	userID := UserIDFromToken(c)
 
 	g := &model.Gig{}
 	u := &model.User{}
@@ -44,7 +44,7 @@ func (h *Handler) CreateGig(c echo.Context) (err error) {
 
 // FetchGig return the last gigs added
 func (h *Handler) FetchGig(c echo.Context) (err error) {
-	userID := userIDFromToken(c)
+	userID := UserIDFromToken(c)
 	if userID == 0 {
 		return &echo.HTTPError{Code: http.StatusUnauthorized, Message: "Login requested"}
 	}

@@ -20,10 +20,6 @@ func SetupDB(cfg *Config) *gorm.DB {
 	dbPort := cfg.PortDB
 	uri := cfg.URI
 	dev := cfg.Dev
-	if dev == false {
-		fmt.Println("Running on Production Enviroment")
-	}
-
 	// Create the Uri
 	dbURI := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=disable password=%s", dbHost, dbPort, username, dbName, password)
 	if uri != "" {
@@ -39,6 +35,7 @@ func SetupDB(cfg *Config) *gorm.DB {
 
 	// Drop tables for development
 	if dev == true {
+		fmt.Println("[-] Running on Dev Enviroment")
 		fmt.Println("[-] Dropping tables")
 		db.Debug().DropTableIfExists(model.Gig{}, model.User{}, model.Proposal{})
 		db.Debug().AutoMigrate(model.User{}, model.Gig{}, model.Proposal{})

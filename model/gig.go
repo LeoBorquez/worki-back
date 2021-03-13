@@ -9,11 +9,12 @@ type Gig struct {
 	gorm.Model         // id, created, updated
 	UserID      uint   `gorm:"FOREIGNKEY"` //change to uint32
 	CategoryID  uint   `gorm:"FOREIGNKEY"`
-	Tittle      string `gorm:"size:255"`
-	Description string `sql:"description"`
+	StatusID    uint   `gorm:"FOREIGNKEY"`
+	Tittle      string `gorm:"size:50"`
+	Description string `gorm:"size:500"`
+	TimeFrame   int
 	Image       string `sql:"image"`
-	Pay         float64
+	Rate        float64
 	Location    string `sql:"location"`
-	IsActive    bool   `sql:"is_activate"`
 	Proposals   []Proposal
 }
