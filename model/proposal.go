@@ -7,10 +7,10 @@ import (
 // Proposal table
 type Proposal struct {
 	gorm.Model
-	UserID      uint   `gorm:"FOREIGNKEY"`
-	GigID       uint   `gorm:"FOREIGNKEY"`
+	UserID      uint   `gorm:"FOREINGKEY"`
+	GigID       uint   `gorm:"FOREINGKEY"`
+	StatusID    uint   `gorm:"FOREINGKEY"`
 	Description string `gorm:"size:500"`
 	Rate        float64
 	TimeFrame   int
-	StatusID    string
 }
