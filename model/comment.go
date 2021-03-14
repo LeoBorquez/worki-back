@@ -8,5 +8,5 @@ type Comment struct {
 	GigID       uint   `gorm:"FOREINGKEY"`
 	UserID      uint   `gorm:"FOREIGNKEY"`
 	Description string `gorm:"size:255"`
-	Like        int
+	Like        uint
 }

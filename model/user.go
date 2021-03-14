@@ -9,7 +9,7 @@ import (
 // User table : test
 type User struct {
 	gorm.Model
-	UserTypeID          uint   `gorm:"FOREIGNKEY"`
+	UserType            UserType
 	FirstName, LastName string `gorm:"size:35"`
 	Email               string `gorm:"type:varchar(255);unique_index"`
 	Phone               string `gorm:"type:varchar(10)"`
@@ -18,6 +18,8 @@ type User struct {
 	Bio                 string `gorm:"size:300"`
 	GigsDone            int
 	Token               string
+	Feedbacks           []Feedback
+	Proposals           []Proposal
 }
 
 // CreateUser struct
