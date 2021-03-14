@@ -3,6 +3,8 @@ module github.com/LeoBorquez/worki-back
 go 1.15
 
 require (
+	firebase.google.com/go v3.13.0+incompatible // indirect
+	firebase.google.com/go/v4 v4.2.0 // indirect
 	github.com/DATA-DOG/go-sqlmock v1.5.0
 	github.com/biezhi/gorm-paginator/pagination v0.0.0-20190124091837-7a5c8ed20334
 	github.com/brianvoe/gofakeit v3.18.0+incompatible
