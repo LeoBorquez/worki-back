@@ -32,7 +32,7 @@ func LoadConfig() *Config {
 	var cfg Config
 	err := envconfig.Process("back", &cfg)
 	if err != nil {
-		log.Fatalf(err.Error())
+		log.Fatalf(err.Error(), log.Ldate)
 	}
 	return &cfg
 }

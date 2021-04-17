@@ -19,7 +19,7 @@ func main() {
 
 	// fmt.Printf("%v, %T\n", const, const) print value and type of const
 	cors := cfg.Cors
-	fmt.Printf("[-] Value CORS %v\n", cors)
+	fmt.Printf("[-] Value CORS %v\n", cfg.Cors)
 
 	// Connect to the database
 	db := config.SetupDB(cfg)

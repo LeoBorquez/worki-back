@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/LeoBorquez/worki-back/model"
 	"github.com/jinzhu/gorm"
@@ -25,12 +26,12 @@ func SetupDB(cfg *Config) *gorm.DB {
 	if uri != "" {
 		dbURI = uri
 	}
-	fmt.Println("[-] URI db", dbURI)
+	fmt.Println("[-] URI db :: ", dbURI)
 
 	// Database connection
 	db, err := gorm.Open("postgres", dbURI)
 	if err != nil {
-		panic(err)
+		log.Fatalln("[-] Error openning connection :: ", err)
 	}
 
 	// Drop tables for development
@@ -39,7 +40,7 @@ func SetupDB(cfg *Config) *gorm.DB {
 		fmt.Println("[-] Dropping tables")
 		db.Debug().DropTableIfExists(model.Gig{}, model.User{}, model.Proposal{})
 		db.Debug().AutoMigrate(model.User{}, model.Gig{}, model.Proposal{}, model.Comment{})
-		fmt.Println("[-] Creating faking data")
+		log.Println("[-] Creating faking data")
 		model.FakeData(db)
 	}
 	// Migrate model
