@@ -26,7 +26,7 @@ func SetupDB(cfg *Config) *gorm.DB {
 	if uri != "" {
 		dbURI = uri
 	}
-	fmt.Println("[-] URI db :: ", dbURI)
+	log.Println("[-] URI db :: ", dbURI)
 
 	// Database connection
 	db, err := gorm.Open("postgres", dbURI)

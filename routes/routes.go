@@ -14,8 +14,7 @@ func Routes(e *echo.Echo) {
 	h := &handler.Handler{DB: dbConnection()}
 
 	UserRoute(e, h)
-	
-
+	GigRoute(e, h)
 
 }
 
