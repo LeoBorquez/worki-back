@@ -1,11 +1,11 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/LeoBorquez/worki-back/config"
 	"github.com/LeoBorquez/worki-back/handler"
+	"github.com/LeoBorquez/worki-back/routes"
 
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/labstack/echo"
@@ -19,13 +19,7 @@ func main() {
 
 	// fmt.Printf("%v, %T\n", const, const) print value and type of const
 	cors := cfg.Cors
-	fmt.Printf("[-] Value CORS %v\n", cfg.Cors)
-
-	// Connect to the database
-	db := config.SetupDB(cfg)
-
-	// Handler "receiver" attached to the function type
-	h := &handler.Handler{DB: db}
+	log.Printf("[-] Value CORS %v\n", cfg.Cors)
 
 	// Start echo
 	e := echo.New()
@@ -45,21 +39,17 @@ func main() {
 		},
 	}))
 
-	e.POST("/signup", h.SignUp)
-	e.POST("/login", h.Login)
-	e.POST("/gigs", h.CreateGig)
-	e.GET("/feed", h.FetchGig)
-	e.PATCH("/users/:id", h.UpdateUser)
+	routes.Routes(e)
 
-	e.Logger.Fatal(e.Start(getPort()))
+	e.Logger.Fatal(e.Start(loadPort()))
 
 }
 
-func getPort() string {
+func loadPort() string {
 	port := cfg.Port
 	if port == "" {
 		port = "1323"
-		fmt.Println("[-] No Port Enviroment variable detected. Setting to ", port)
+		log.Printf("[-] No Port Enviroment variable detected. Setting to ", port)
 	}
 
 	return ":" + port
