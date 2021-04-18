@@ -13,11 +13,9 @@ func Routes(e *echo.Echo) {
 	// Handler "receiver" attached to the function type
 	h := &handler.Handler{DB: dbConnection()}
 
-	e.POST("/signup", h.SignUp)
-	e.POST("/login", h.Login)
-	e.POST("/gigs", h.CreateGig)
-	e.GET("/feed", h.FetchGig)
-	e.PATCH("/users/:id", h.UpdateUser)
+	UserRoute(e, h)
+	
+
 
 }
 
