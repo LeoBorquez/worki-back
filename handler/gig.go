@@ -42,6 +42,10 @@ func (h *Handler) CreateGig(c echo.Context) (err error) {
 	return c.JSON(http.StatusCreated, g)
 }
 
+func (h *Handler) GetGig(c echo.Context) (gig *model.Gig, err error) {
+	return nil, nil
+}
+
 // FetchGig return the last gigs added
 func (h *Handler) FetchGig(c echo.Context) (err error) {
 	userID := UserIDFromToken(c)

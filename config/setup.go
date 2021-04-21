@@ -28,7 +28,7 @@ func SetupDB(cfg *Config) *gorm.DB {
 	}
 	log.Println("[-] URI db :: ", dbURI)
 
-	// Database connection
+	// Database connection, return a pool of many connections (sql.DB object)
 	db, err := gorm.Open("postgres", dbURI)
 	if err != nil {
 		log.Fatalln("[-] Error openning connection :: ", err)
