@@ -6,6 +6,7 @@ import (
 
 	"github.com/LeoBorquez/worki-back/model"
 	"github.com/dgrijalva/jwt-go"
+	"github.com/gofiber/fiber"
 	"github.com/labstack/echo"
 )
 
@@ -102,4 +103,8 @@ func UserIDFromToken(c echo.Context) uint {
 	claims := user.Claims.(jwt.MapClaims)
 
 	return uint(claims["id"].(float64))
+}
+func SignUp(c *fiber.Ctx) {
+	c.Send("ok")
+	return
 }

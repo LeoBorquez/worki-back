@@ -12,12 +12,13 @@ import (
 // CreateGig create a new gig
 func (h *Handler) CreateGig(c echo.Context) (err error) {
 
-	db := h.DB
 	userID := UserIDFromToken(c)
 
 	g := &model.Gig{}
 	u := &model.User{}
 	g.UserID = userID
+
+	db := h.DB
 
 	// binding gig
 	if err = c.Bind(g); err != nil {
@@ -38,8 +39,23 @@ func (h *Handler) CreateGig(c echo.Context) (err error) {
 	}
 
 	db.Create(g)
+	defer db.Close()
 
 	return c.JSON(http.StatusCreated, g)
+}
+
+func (h *Handler) GetGig(c echo.Context) (err error) {
+	userID := UserIDFromToken(c)
+	gig := &model.Gig{}
+	if userID == 0 {
+		return &echo.HTTPError{Code: http.StatusUnauthorized, Message: "Not Authorized"}
+	}
+
+	if err := c.Bind(gig); err != nil {
+		return &echo.HTTPError{Code: http.StatusInternalServerError, Message: "Can't bind object"}
+	}
+
+	return c.JSON(http.StatusFound, gig)
 }
 
 // FetchGig return the last gigs added

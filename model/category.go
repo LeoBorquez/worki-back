@@ -6,4 +6,5 @@ type Category struct {
 	gorm.Model
 	Name        string
 	Description string `gorm:"size:50"`
+	Gigs        []Gig
 }
