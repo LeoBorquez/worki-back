@@ -7,6 +7,7 @@ import (
 	"github.com/LeoBorquez/worki-back/handler"
 	"github.com/LeoBorquez/worki-back/routes"
 
+	"github.com/gofiber/fiber/v2"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
@@ -17,6 +18,13 @@ var cfg = config.LoadConfig()
 
 func main() {
 
+	app := fiber.New()
+
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.SendString("Hello, world!")
+	})
+
+	log.Fatal(app.Listen(loadPort()))
 	// fmt.Printf("%v, %T\n", const, const) print value and type of const
 	cors := cfg.Cors
 	log.Printf("[-] Value CORS %v\n", cfg.Cors)

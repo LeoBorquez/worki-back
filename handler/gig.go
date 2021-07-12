@@ -39,6 +39,7 @@ func (h *Handler) CreateGig(c echo.Context) (err error) {
 	}
 
 	db.Create(g)
+	defer db.Close()
 
 	return c.JSON(http.StatusCreated, g)
 }
