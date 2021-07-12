@@ -1,20 +1,26 @@
-package routes
+package router
 
 import (
 	"github.com/LeoBorquez/worki-back/config"
 	"github.com/LeoBorquez/worki-back/handler"
+	"github.com/gofiber/fiber"
 	"github.com/jinzhu/gorm"
-	"github.com/labstack/echo"
 )
 
 var cfg = config.LoadConfig()
 
-func Routes(e *echo.Echo) {
+func SetupRoutes(app *fiber.App) {
 	// Handler "receiver" attached to the function type
-	h := &handler.Handler{DB: dbConnection()}
+	//h := &handler.Handler{DB: dbConnection()}
 
-	UserRoute(e, h)
-	GigRoute(e, h)
+	api := app.Group("/api")
+
+	v1 := api.Group("/v1", func(c *fiber.Ctx) error { // middleware for /api/v1
+		c.Set("Version", "v1")
+		return c.Next()
+	})
+
+	v1.Get("/signup", handler.SignUp)
 
 }
 

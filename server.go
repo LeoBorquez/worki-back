@@ -5,9 +5,10 @@ import (
 
 	"github.com/LeoBorquez/worki-back/config"
 	"github.com/LeoBorquez/worki-back/handler"
-	"github.com/LeoBorquez/worki-back/routes"
+	"github.com/LeoBorquez/worki-back/router"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/logger"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
@@ -20,11 +21,12 @@ func main() {
 
 	app := fiber.New()
 
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Hello, world!")
-	})
+	app.Use(logger.New())
+
+	router.SetupRoutes(app)
 
 	log.Fatal(app.Listen(loadPort()))
+
 	// fmt.Printf("%v, %T\n", const, const) print value and type of const
 	cors := cfg.Cors
 	log.Printf("[-] Value CORS %v\n", cfg.Cors)
