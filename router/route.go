@@ -15,10 +15,7 @@ func SetupRoutes(app *fiber.App) {
 
 	api := app.Group("/api")
 
-	v1 := api.Group("/v1", func(c *fiber.Ctx) error { // middleware for /api/v1
-		c.Set("Version", "v1")
-		return c.Next()
-	})
+	v1 := api.Group("/v1")
 
 	v1.Get("/signup", handler.SignUp)
 
