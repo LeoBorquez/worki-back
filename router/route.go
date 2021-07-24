@@ -3,7 +3,7 @@ package router
 import (
 	"github.com/LeoBorquez/worki-back/config"
 	"github.com/LeoBorquez/worki-back/handler"
-	"github.com/gofiber/fiber"
+	"github.com/gofiber/fiber/v2"
 	"github.com/jinzhu/gorm"
 )
 

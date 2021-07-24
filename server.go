@@ -49,8 +49,6 @@ func main() {
 		},
 	}))
 
-	routes.Routes(e)
-
 	e.Logger.Fatal(e.Start(loadPort()))
 
 }

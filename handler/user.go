@@ -6,7 +6,7 @@ import (
 
 	"github.com/LeoBorquez/worki-back/model"
 	"github.com/dgrijalva/jwt-go"
-	"github.com/gofiber/fiber"
+	"github.com/gofiber/fiber/v2"
 	"github.com/labstack/echo"
 )
 
@@ -104,7 +104,16 @@ func UserIDFromToken(c echo.Context) uint {
 
 	return uint(claims["id"].(float64))
 }
-func SignUp(c *fiber.Ctx) {
-	c.Send("ok")
-	return
+func SignUp(c *fiber.Ctx) error {
+	nw := new(model.CreateUser)
+	if err := c.BodyParser(&nw); err != nil {
+		c.Status(500).JSON(fiber.Map{
+			"Code":    500,
+			"Message": "Can't bind object.",
+			"Error":   err.Error(),
+		})
+		return err
+	}
+
+	return c.SendString("testing")
 }
