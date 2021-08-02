@@ -19,10 +19,16 @@ var cfg = config.LoadConfig()
 
 func main() {
 
+	// create new fiber app
 	app := fiber.New()
 
+	// start looger
 	app.Use(logger.New())
 
+	// initialize firebase
+	config.SetupFirebase(cfg.Firebase)
+
+	// initialize routes
 	router.SetupRoutes(app)
 
 	log.Fatal(app.Listen(loadPort()))
@@ -48,8 +54,6 @@ func main() {
 			return false
 		},
 	}))
-
-	routes.Routes(e)
 
 	e.Logger.Fatal(e.Start(loadPort()))
 

@@ -9,16 +9,17 @@ import (
 
 // Config struct
 type Config struct {
-	Dev     bool `default:"false"`
-	Cors    string
-	HostDB  string
-	PortDB  string `default:"5432"`
-	UserDB  string
-	NameDB  string
-	PassDB  string
-	URI     string `default:""`
-	SSLmode string
-	Port    string `default:"1323"`
+	Dev      bool `default:"false"`
+	Cors     string
+	HostDB   string
+	PortDB   string `default:"5432"`
+	UserDB   string
+	NameDB   string
+	PassDB   string
+	URI      string `default:""`
+	SSLmode  string
+	Port     string `default:"1323"`
+	Firebase string
 }
 
 // LoadConfig load all the .env file to read the enviroment config

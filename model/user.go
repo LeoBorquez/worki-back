@@ -24,7 +24,7 @@ type User struct {
 
 // CreateUser struct
 type CreateUser struct {
-	Email    string `gorm:"type:varchar(255);unique_index"`
+	Email    string
 	Password string
 }
 

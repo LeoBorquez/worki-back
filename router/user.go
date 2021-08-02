@@ -1,10 +1,9 @@
 package router
 
 import (
-	"github.com/LeoBorquez/worki-back/handler"
-	"github.com/gofiber/fiber"
+	"github.com/gofiber/fiber/v2"
 )
 
 func UserRoute(app *fiber.App) {
-	app.Get("/signup", handler.SignUp())
+	return
 }
